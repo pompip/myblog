@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${article.getTitle()}">档案</title>
+    <link rel="stylesheet" href="/css/apollo.css"/>
+    <!--<link rel="stylesheet" href="/css/markdown-style.css"/>-->
+    <script src="/js/marked.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <header th:replace="header::header">
+
+    </header>
+    <main class="container">
+
+        <div class="post">
+            <article class="post-block">
+                <h1 class="post-title" th:text="${article.getTitle()}">浅谈 Android 编程思想和架构</h1>
+                <div class="post-info" th:text="${article.getUpdateTimestamp()}">Mar 11, 2016</div>
+                <div id="markdown-content" class="post-content" th:utext="${article.getContent()}"></div>
+            </article>
+        </div>
+    </main>
+    <footer th:replace="footer::footer">
+
+    </footer>
+</div>
+<script>
+   var  contentDiv =  document.getElementById("markdown-content");
+   contentDiv.innerHTML = marked(contentDiv.innerHTML)
+</script>
+</body>
+</html>
