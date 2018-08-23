@@ -10,7 +10,6 @@
         outline: none;
         border-radius: 0;
     }
-
     html, body {
         width: 100%;
         height: 100%;
@@ -60,49 +59,28 @@
 
     }
 
-    #title {
-        margin-left: 20px;
-    }
-
     #save {
         margin-right: 20px;
     }
     </style>
-    <script src="/js/marked.min.js"></script>
-    <script src="/js/jquery-1.11.2.min.js"></script>
+    <script src="/js/showdown.js"></script>
+    <script src="/js/jquery.min.js"></script>
 
 </head>
 <body>
 <div id="toolbar">
-    <div id="title" contenteditable="true" style="float: left;min-width: 10rem" th:text="${article?.getArticleTitle()}">
-        tittle
-    </div>
     <div id="save" style="float: right">保存</div>
 </div>
 <div id="container">
-    <textarea wrap="hard" id="editor" th:text="${article?.getArticleContent()}">
-    </textarea>
-    <div id="preview" class="markdown-body">
-    </div>
+    <textarea wrap="hard" id="editor"></textarea>
+    <div id="preview" class="markdown-body"></div>
 </div>
-<script >
-
-
-</script>
 <script th:inline="javascript">
-    function empty() {
-        if ($("#title").text() === "") $("#title").text("请输入标题");
-    }
-    empty()
-    $("#title").blur(function (ev) {
-        empty()
-    });
+
     $("#save").click(function (ev) {
         var text = $("#editor").val();
-        var title = $("#title").text();
-        var id = [[${article?.getId()}]];
 
-        $.post("/uploadarticle", {"content": text, "title": title,"id":id==null?-1:id}, function (data, status) {
+        $.post("/postMarkdown", {"content": text}, function (data, status) {
             alert(data + "   " + status)
             if (status === "success") {
                 $(location).prop('href', '/article/' + data)
@@ -111,9 +89,10 @@
     });
     var editor = $("#editor");
     var preview = $("#preview");
-    preview.html(marked(editor.val()));
+    var converter = new showdown.Converter();
+    preview.html(converter.makeHtml(editor.val()));
     editor[0].oninput = function () {
-        preview.html(marked(editor.val()));
+        preview.html(converter.makeHtml(editor.val()));
     };
 </script>
 </body>
