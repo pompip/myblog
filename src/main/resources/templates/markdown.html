@@ -80,10 +80,10 @@
     $("#save").click(function (ev) {
         var text = $("#editor").val();
 
-        $.pos("/article/save", {"content": text}, function (data, status) {
+        $.post("/article/save", {"content": text}, function (data, status) {
             alert(data + "   " + status)
             if (status === "success") {
-                $(location).prop('href', '/article/' + data)
+                $(location).prop('href', '/archive/' + data)
             }
         })
     });
