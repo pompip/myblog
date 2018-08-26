@@ -1,6 +1,7 @@
 package cn.pompip.myblog.control
 
 import cn.pompip.myblog.server.ArticleServer
+import cn.pompip.myblog.utils.loge
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -16,27 +17,33 @@ class IndexController {
 
     @GetMapping("/")
     fun index(model: Model): String {
-        val articleList = server.getAll();
+        val articleList = server.getIndexArticleList();
         model.addAttribute("articleList", articleList)
         return "index"
     }
 
-    @GetMapping("/article/{id}")
-    fun articleContent(@PathVariable("id") id: Long, model: Model): String {
-        model.addAttribute("article", server.getOne(id))
-        return "article_content"
-    }
 
     @GetMapping("/markdown")
     fun startMarkdown(model: Model): String = "/markdown"
 
-    @PostMapping("/postMarkdown")
-    fun postMarkdown(content :String){
-        server.saveArticle(content)
+
+
+    @GetMapping("/archives")
+    fun getArchives(model:Model):String{
+        model.addAttribute("articleList",server.getAllArticle())
+        return "/archives"
     }
 
-    @PostMapping("/updateMarkdown")
-    fun updateMarkdown(){
+    @GetMapping("/archive/{id}")
+    fun previewArticle(@PathVariable id: Long,model:Model):String{
+        model.addAttribute("article",server.getOne(id))
+        return "/article_content"
+    }
 
+    @GetMapping("/markdown/{id}")
+    fun startMarkdown(@PathVariable("id") id :Long,model:Model):String{
+        model.addAttribute("id",id)
+        loge("id:"+id.toString())
+        return "/markdown";
     }
 }

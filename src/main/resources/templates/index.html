@@ -12,13 +12,12 @@
     <header th:replace="header::header">
 
     </header>
-    hello world
     <main class="container">
         <ul class="home post-list" th:each="article:${articleList}">
             <li class="post-list-item">
                 <article class="post-block">
                     <h2 class="post-title">
-                        <a href="" class="post-title-link" th:href="@{/article/{id}(id=${article.getId()})}"
+                        <a href="" class="post-title-link" th:href="@{/archive/{id}(id=${article.getId()})}"
                            th:text="${article.getTitle()}">
                         </a>
                     </h2>
@@ -26,7 +25,7 @@
                     <div class="post-content" th:utext="${article.getContent()}">
                         some thing
                     </div>
-                    <a href="" class="read-more" th:href="@{/article/{id}(id=${article.getId()})}">more</a>
+                    <a href="" class="read-more" th:href="@{/archive/{id}(id=${article.getId()})}">more</a>
                 </article>
             </li>
         </ul>

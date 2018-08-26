@@ -230,9 +230,10 @@ hr {
 code {
     margin: 0 2px;
     padding: 3px 5px;
-    color: #e96900;
+    /*color: #e96900;*/
     border-radius: 2px;
-    white-space: inherit
+    white-space: inherit;
+
 }
 
 iframe, video {
@@ -469,7 +470,7 @@ header .nav-list-item a {
 }
 
 code, pre {
-    font-size: 0.8em;
+    font-size: 1em;
     background-color: #f8f8f8;
     font-family: 'Roboto Mono', Monaco, courier, monospace
 }

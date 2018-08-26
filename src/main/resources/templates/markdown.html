@@ -80,7 +80,7 @@
     $("#save").click(function (ev) {
         var text = $("#editor").val();
 
-        $.post("/postMarkdown", {"content": text}, function (data, status) {
+        $.pos("/article/save", {"content": text}, function (data, status) {
             alert(data + "   " + status)
             if (status === "success") {
                 $(location).prop('href', '/article/' + data)
@@ -91,9 +91,24 @@
     var preview = $("#preview");
     var converter = new showdown.Converter();
     preview.html(converter.makeHtml(editor.val()));
-    editor[0].oninput = function () {
+
+    editor.on("input",function (e) {
         preview.html(converter.makeHtml(editor.val()));
-    };
+    });
+
+
+
+    var id = [[${id}]];
+    if(id!=null){
+        $.post("/article/"+id,function (data, status) {
+            editor.val( data.content);
+            preview.html(converter.makeHtml(editor.val()));
+        })
+
+    }
+
+
+
 </script>
 </body>
 </html>
