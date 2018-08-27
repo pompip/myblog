@@ -9,5 +9,3 @@ class MyblogApplication
 fun main(args: Array<String>) {
     runApplication<MyblogApplication>(*args)
 }
-
-

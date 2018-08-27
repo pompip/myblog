@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${article.getTitle()}">档案</title>
     <link rel="stylesheet" href="/css/apollo.css"/>
-    <!--<link rel="stylesheet" href="/css/markdown-style.css"/>-->
-    <script src="/js/marked.min.js"></script>
+    <script src="/js/showdown.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -19,7 +18,7 @@
             <article class="post-block">
                 <h1 class="post-title" th:text="${article.getTitle()}">浅谈 Android 编程思想和架构</h1>
                 <div class="post-info" th:text="${article.getUpdateTimestamp()}">Mar 11, 2016</div>
-                <div id="markdown-content" class="post-content" th:utext="${article.getContent()}"></div>
+                <div id="markdown-content" class="post-content">this is html</div>
             </article>
         </div>
     </main>
@@ -27,9 +26,12 @@
 
     </footer>
 </div>
-<script>
-   var  contentDiv =  document.getElementById("markdown-content");
-   contentDiv.innerHTML = marked(contentDiv.innerHTML)
+
+<script th:inline="javascript">
+    var content = [[${article.getContent()}]]
+    var contentDiv = document.getElementById("markdown-content");
+    var converter = new showdown.Converter();
+    contentDiv.innerHTML = converter.makeHtml(content)
 </script>
 </body>
 </html>

@@ -13,21 +13,18 @@ class ArticleController {
     lateinit var server: ArticleServer
 
     @PostMapping("/list")
-    fun getArticleList(): List<ArticleEntity> {
-        return server.getIndexArticleList()
-    }
+    fun getArticleList(): List<ArticleEntity> = server.getIndexArticleList()
+
 
     @PostMapping("/{id}")
     fun getArticle(@PathVariable id: Long) = server.getOne(id)
 
     @PostMapping("/save")
-    fun postMarkdown(content :String){
-        server.saveArticle(content)
-    }
+    fun postMarkdown(content: String): Long = server.saveArticle(content).id
+
 
     @PostMapping("/update")
-    fun updateMarkdown(){
+    fun updateMarkdown(content: String, id: Long): Long = server.updateArticle(content, id).id
 
-    }
 
 }

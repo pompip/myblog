@@ -76,17 +76,42 @@
     <div id="preview" class="markdown-body"></div>
 </div>
 <script th:inline="javascript">
+    var id = [[${id}]];
+    if(id!=null){
+        $.post("/article/"+id,function (data, status) {
+            editor.val( data.content);
+            preview.html(converter.makeHtml(editor.val()));
+        })
+    }
 
-    $("#save").click(function (ev) {
-        var text = $("#editor").val();
 
+    function save(text){
         $.post("/article/save", {"content": text}, function (data, status) {
             alert(data + "   " + status)
             if (status === "success") {
                 $(location).prop('href', '/archive/' + data)
             }
         })
+    }
+
+    function update(text){
+        $.post("/article/update", {"content": text,"id":id}, function (data, status) {
+            alert(status)
+            if (status === "success") {
+                $(location).prop('href', '/archive/' + data)
+            }
+        })
+    }
+
+    $("#save").click(function (ev) {
+        var text = $("#editor").val();
+        if (id==null){
+            save(text)
+        }else {
+            update(text)
+        }
     });
+
     var editor = $("#editor");
     var preview = $("#preview");
     var converter = new showdown.Converter();
@@ -95,19 +120,6 @@
     editor.on("input",function (e) {
         preview.html(converter.makeHtml(editor.val()));
     });
-
-
-
-    var id = [[${id}]];
-    if(id!=null){
-        $.post("/article/"+id,function (data, status) {
-            editor.val( data.content);
-            preview.html(converter.makeHtml(editor.val()));
-        })
-
-    }
-
-
 
 </script>
 </body>

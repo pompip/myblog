@@ -30,10 +30,10 @@
 
                 <div class="post-item">
                     <div class="post-info" th:text="${art.getCreateTimestamp()}">Mar 19, 2018</div>
-                    <a href="" class="post-title-link" th:text="${art.getTitle()}" th:href="@{/article/{id}(id=${art.getId()})}">Pure Writer
+                    <a href="" class="post-title-link" th:text="${art.getTitle()}" th:href="@{/archive/{id}(id=${art.getId()})}">Pure Writer
                         3.0 - Never Lost Content Editor</a>
                     <div  class="read-more" th:onclick="'javascript:deleteArticle('+${art.getId()}+')'"  style="float: right"> 删除 </div>
-                    <a href="" class="read-more" th:href="@{/archive/{id}(id=${art.getId()})}" style="float: right;margin-right: 2rem"> 编辑 </a>
+                    <a href="" class="read-more" th:href="@{/markdown/{id}(id=${art.getId()})}" style="float: right;margin-right: 2rem"> 编辑 </a>
                 </div>
         </div>
     </main>
