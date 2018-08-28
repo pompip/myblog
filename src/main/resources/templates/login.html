@@ -1,29 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
+    <title>登录</title>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/apollo.css">
+    <style>
+        footer {
+            flex: 0 0 auto;
+            position: absolute;
+            bottom: 0;
+            width: 50%;
+        }
+    </style>
     <script>
         function login() {
-            var name = $("#name").val()
-            var password = $("#pas").val()
+            var name = $("#name").val();
+            var password = $("#pwd").val();
             $.post(
-                "/account/login",
-                {"name": name, "password": password},
-                function (result) {
-                    if ("success" == result) {
+                "/user/login",
+                {"name": name, "pwd": password},
+                function (data) {
+                    alert(data);
+                    if (data === 1) {
                         window.location.href = "/"
                     } else {
-                        alert(result)
+
                     }
                 }
             )
         }
 
         function logout() {
-            $.post("/account/logout", function (result) {
-                if (result == "success") {
+            $.post("/user/logout", function (data) {
+                if (data === 1) {
                     alert("logout")
                 }
             })
@@ -31,30 +41,19 @@
     </script>
 </head>
 <body>
-<form id="loginform">
-    <table align="center">
-        <tr>
-            <td>
-                账户：
-            </td>
-            <td>
-                <input type="text" name="name" id="name"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                密码：
-            </td>
-            <td>
-                <input type="password" name="password" id="pas"/>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="button" value="登陆" onclick="login()"/></td>
-            <td><input type="button" value="注册"/></td>
-            <td><input type="button" value="注销" onclick="logout()"/></td>
-        </tr>
-    </table>
-</form>
+<header th:replace="header::header"></header>
+<div id="loginform" style="text-align: center">
+    <div>
+        账户： <input type="text" name="name" id="name"/>
+    </div>
+    <div>
+        密码： <input type="password" name="password" id="pwd"/>
+    </div>
+    <button onclick="login()">登陆</button>
+    <button>注册</button>
+    <button onclick="logout()">注销</button>
+
+</div>
+<footer th:replace="footer::footer"></footer>
 </body>
 </html>

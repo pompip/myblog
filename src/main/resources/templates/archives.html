@@ -11,9 +11,9 @@
     <script src="/js/jquery.min.js"></script>
     <script>
         function deleteArticle(id) {
-            $.post("/deletearticle",{"id":id},function (data, status) {
-                    alert(data+"   "+status)
-                if (data){
+            $.post("/deletearticle", {"id": id}, function (data, status) {
+                alert(data + "   " + status);
+                if (data) {
                     window.location.reload();
                 }
             })
@@ -21,24 +21,25 @@
     </script>
 </head>
 <body>
-<div class="wrap">
-    <header th:replace="header::header"></header>
-    <main class="container">
-        <h2 class="archive-year">2018</h2>
-        <div class="archive" th:each="art:${articleList}">
+<header th:replace="header::header"></header>
+<main class="container">
+    <h2 class="archive-year">2018</h2>
+    <div class="archive" th:each="art:${articleList}">
 
-
-                <div class="post-item">
-                    <div class="post-info" th:text="${art.getCreateTimestamp()}">Mar 19, 2018</div>
-                    <a href="" class="post-title-link" th:text="${art.getTitle()}" th:href="@{/archive/{id}(id=${art.getId()})}">Pure Writer
-                        3.0 - Never Lost Content Editor</a>
-                    <div  class="read-more" th:onclick="'javascript:deleteArticle('+${art.getId()}+')'"  style="float: right"> 删除 </div>
-                    <a href="" class="read-more" th:href="@{/markdown/{id}(id=${art.getId()})}" style="float: right;margin-right: 2rem"> 编辑 </a>
-                </div>
+        <div class="post-item">
+            <div class="post-info" th:text="${art.getCreateTimestamp()}">Mar 19, 2018</div>
+            <a href="" class="post-title-link" th:text="${art.getTitle()}"
+               th:href="@{/archive/{id}(id=${art.getId()})}">Pure Writer
+                3.0 - Never Lost Content Editor</a>
+            <div class="read-more" th:onclick="'javascript:deleteArticle('+${art.getId()}+')'" style="float: right">
+                删除
+            </div>
+            <a href="" class="read-more" th:href="@{/markdown/{id}(id=${art.getId()})}"
+               style="float: right;margin-right: 2rem"> 编辑 </a>
         </div>
-    </main>
-    <footer th:replace="footer::footer"></footer>
-</div>
+    </div>
+</main>
+<footer th:replace="footer::footer"></footer>
 
 </body>
 </html>

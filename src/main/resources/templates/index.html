@@ -7,33 +7,31 @@
     <link rel="stylesheet" href="/css/apollo.css"/>
 </head>
 <body>
+<header th:replace="header::header">
 
-<div class="wrap">
-    <header th:replace="header::header">
+</header>
+<main class="container">
+    <ul class="home post-list" th:each="article:${articleList}">
+        <li class="post-list-item">
+            <article class="post-block">
+                <h2 class="post-title">
+                    <a href="" class="post-title-link" th:href="@{/archive/{id}(id=${article.getId()})}"
+                       th:text="${article.getTitle()}">
+                    </a>
+                </h2>
+                <div class="post-info" th:text="${article.getUpdateTimestamp()}"></div>
+                <div class="post-content" th:utext="${article.getContent()}">
+                    some thing
+                </div>
+                <a href="" class="read-more" th:href="@{/archive/{id}(id=${article.getId()})}">more</a>
+            </article>
+        </li>
+    </ul>
+</main>
+<div class="paginator"><a href="/" class="prev">PREV</a><a href="/page/3/" class="next">NEXT</a></div>
+<footer th:replace="footer::footer">
 
-    </header>
-    <main class="container">
-        <ul class="home post-list" th:each="article:${articleList}">
-            <li class="post-list-item">
-                <article class="post-block">
-                    <h2 class="post-title">
-                        <a href="" class="post-title-link" th:href="@{/archive/{id}(id=${article.getId()})}"
-                           th:text="${article.getTitle()}">
-                        </a>
-                    </h2>
-                    <div class="post-info" th:text="${article.getUpdateTimestamp()}"></div>
-                    <div class="post-content" th:utext="${article.getContent()}">
-                        some thing
-                    </div>
-                    <a href="" class="read-more" th:href="@{/archive/{id}(id=${article.getId()})}">more</a>
-                </article>
-            </li>
-        </ul>
-    </main>
-    <div class="paginator"><a href="/" class="prev">PREV</a><a href="/page/3/" class="next">NEXT</a></div>
-    <footer th:replace="footer::footer">
+</footer>
 
-    </footer>
-</div>
 </body>
 </html>

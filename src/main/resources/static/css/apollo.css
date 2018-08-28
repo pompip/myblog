@@ -266,7 +266,8 @@ table tbody td {
 }
 
 header {
-    min-height: 60px
+    min-height: 60px;
+    text-align: center;
 }
 
 header .logo-link {
@@ -274,8 +275,8 @@ header .logo-link {
 }
 
 header .nav {
-    float: right;
-    left: 80px
+    /*float:left;*/
+    /*left: 80px*/
 }
 
 header .logo-link img {
@@ -668,8 +669,8 @@ main.container {
 }
 
 @media screen and (min-width: 700px) {
-    .wrap {
-        width: 700px;
+    body {
+        width: 800px;
         margin: 0 auto
     }
 
@@ -679,7 +680,7 @@ main.container {
 }
 
 @media screen and (max-width: 700px) {
-    .wrap {
+    body {
         width: 100%
     }
 

@@ -44,6 +44,8 @@ class IndexController {
     fun startMarkdown(@PathVariable("id") id :Long,model:Model):String{
         model.addAttribute("id",id)
         loge("id:"+id.toString())
-        return "/markdown";
+        return "/markdown"
     }
+    @GetMapping("/resume") fun myResume() = "/resume"
+
 }

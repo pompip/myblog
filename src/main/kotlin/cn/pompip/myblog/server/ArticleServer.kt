@@ -29,7 +29,7 @@ class ArticleServer {
         var lineNum = 0
         while (scanner.hasNextLine()) {
             val line = scanner.nextLine().dropWhile {
-                " #*>`".contains(it)
+                " #*<>`/".contains(it)
             }
             if (line.isBlank()) {
                 continue
