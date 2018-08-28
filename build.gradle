@@ -42,11 +42,7 @@ repositories {
 bootRun {
     sourceResources sourceSets.main
 }
-jar{
-//    manifest {
-//        attributes 'Main-Class': MyblogApplication
-//    }
-}
+
 dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-data-jpa")

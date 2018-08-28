@@ -15,7 +15,7 @@ class IndexController {
     lateinit var server: ArticleServer
 
 
-    @GetMapping("/")
+    @GetMapping(value = ["/", "/index"])
     fun index(model: Model): String {
         val articleList = server.getIndexArticleList();
         model.addAttribute("articleList", articleList)
