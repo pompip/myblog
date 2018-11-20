@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession
 class UserController {
 
     @GetMapping("/login")
-    fun login() = "/login"
+    fun login() = "login"
 
     @ResponseBody
     @PostMapping("/login")

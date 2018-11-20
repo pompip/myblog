@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.4.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.0.RELEASE'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.61'
         classpath 'org.jetbrains.kotlin:kotlin-allopen:1.2.61'
     }
@@ -34,9 +34,15 @@ compileTestKotlin {
         jvmTarget = "1.8"
     }
 }
-
+jar {
+    enabled = true
+}
 repositories {
     mavenCentral()
+}
+
+bootJar {
+    classifier = 'app'
 }
 
 bootRun {

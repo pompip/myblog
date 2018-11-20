@@ -22,30 +22,27 @@ class IndexController {
         return "index"
     }
 
-
     @GetMapping("/markdown")
-    fun startMarkdown(model: Model): String = "/markdown"
-
-
+    fun startMarkdown(model: Model): String = "markdown"
 
     @GetMapping("/archives")
     fun getArchives(model:Model):String{
         model.addAttribute("articleList",server.getAllArticle())
-        return "/archives"
+        return "archives"
     }
 
     @GetMapping("/archive/{id}")
     fun previewArticle(@PathVariable id: Long,model:Model):String{
         model.addAttribute("article",server.getOne(id))
-        return "/article_content"
+        return "article_content"
     }
 
     @GetMapping("/markdown/{id}")
     fun startMarkdown(@PathVariable("id") id :Long,model:Model):String{
         model.addAttribute("id",id)
         loge("id:"+id.toString())
-        return "/markdown"
+        return "markdown"
     }
-    @GetMapping("/resume") fun myResume() = "/resume"
+    @GetMapping("/resume") fun myResume() = "resume"
 
 }

@@ -20,11 +20,12 @@ class ArticleController {
     fun getArticle(@PathVariable id: Long) = server.getOne(id)
 
     @PostMapping("/save")
-    fun postMarkdown(content: String): Long = server.saveArticle(content).id
+    fun saveArticle(content: String) = server.saveArticle(content).id
 
 
     @PostMapping("/update")
-    fun updateMarkdown(content: String, id: Long): Long = server.updateArticle(content, id).id
+    fun updateArticle(content: String, id: Long) = server.updateArticle(content, id).id
 
-
+    @PostMapping("/delete/{id}")
+    fun deleteArticle( @PathVariable id: Long) = server.deleteArticle(id)
 }

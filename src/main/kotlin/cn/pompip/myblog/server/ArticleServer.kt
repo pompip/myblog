@@ -20,12 +20,12 @@ class ArticleServer {
         findAll.forEach {
             generateBrief(it)
         }
-        return findAll;
+        return findAll
     }
 
     private fun generateBrief(articleEntity: ArticleEntity) {
         val builder = StringBuilder()
-        val scanner = Scanner(articleEntity.content);
+        val scanner = Scanner(articleEntity.content)
         var lineNum = 0
         while (scanner.hasNextLine()) {
             val line = scanner.nextLine().dropWhile {
@@ -41,7 +41,7 @@ class ArticleServer {
         articleEntity.content = builder.toString()
     }
 
-    fun getAllArticle(): List<ArticleEntity> = dao.findAll();
+    fun getAllArticle(): List<ArticleEntity> = dao.findAll(Sort.by(Sort.Direction.DESC,"id"))
 
     fun getOne(id: Long): ArticleEntity = dao.getOne(id)
 
@@ -54,10 +54,14 @@ class ArticleServer {
 
     fun updateArticle(content: String, id: Long) :ArticleEntity{
         val entity = getOne(id)
-        entity.content = content;
+        entity.content = content
         entity.updateTimestamp = Timestamp(System.currentTimeMillis())
-        dao.save(entity);
-        return entity;
+        dao.save(entity)
+        return entity
+    }
+
+    fun deleteArticle(id:Long){
+        dao.deleteById(id)
     }
 
 }
