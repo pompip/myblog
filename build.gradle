@@ -5,35 +5,35 @@ buildscript {
     }
     dependencies {
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.0.RELEASE'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.61'
-        classpath 'org.jetbrains.kotlin:kotlin-allopen:1.2.61'
+//        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.61'
+//        classpath 'org.jetbrains.kotlin:kotlin-allopen:1.2.61'
     }
 }
 
 
-apply plugin: "kotlin"
-apply plugin: "kotlin-spring"
+//apply plugin: "kotlin"
+//apply plugin: "kotlin-spring"
 //apply plugin: "eclipse"
 apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
-
+apply plugin: 'java'
 
 group = "cn.pompip"
 version = "0.0.1-SNAPSHOT"
 
 sourceCompatibility =1.8
-compileKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "1.8"
-    }
-}
+//compileKotlin {
+//    kotlinOptions {
+//        freeCompilerArgs = ["-Xjsr305=strict"]
+//        jvmTarget = "1.8"
+//    }
+//}
+//compileTestKotlin {
+//    kotlinOptions {
+//        freeCompilerArgs = ["-Xjsr305=strict"]
+//        jvmTarget = "1.8"
+//    }
+//}
 jar {
     enabled = true
 }
@@ -41,9 +41,9 @@ repositories {
     mavenCentral()
 }
 
-bootJar {
-    classifier = 'app'
-}
+//bootJar {
+//    classifier = 'app'
+//}
 
 bootRun {
     sourceResources sourceSets.main
@@ -57,10 +57,10 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-websocket")
     compile("org.springframework.boot:spring-boot-starter-tomcat")
     compile("org.springframework.boot:spring-boot-devtools")
-    compile("com.fasterxml.jackson.module:jackson-module-kotlin")
+//    compile("com.fasterxml.jackson.module:jackson-module-kotlin")
     compile("org.springframework.session:spring-session-core")
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    compile("org.jetbrains.kotlin:kotlin-reflect")
+//    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+//    compile("org.jetbrains.kotlin:kotlin-reflect")
     runtime("mysql:mysql-connector-java")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 
