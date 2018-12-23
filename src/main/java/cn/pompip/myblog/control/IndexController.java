@@ -1,6 +1,6 @@
 package cn.pompip.myblog.control;
 
-import cn.pompip.myblog.entity.ArticleEntity;
+import cn.pompip.lib.entity.ArticleEntity;
 import cn.pompip.myblog.server.ArticleServer;
 
 import static cn.pompip.myblog.utils.LogUtil.loge;

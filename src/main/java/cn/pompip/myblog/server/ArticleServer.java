@@ -1,10 +1,9 @@
 package cn.pompip.myblog.server;
 
-import cn.pompip.myblog.dao.ArticleDao;
-import cn.pompip.myblog.entity.ArticleEntity;
+import cn.pompip.lib.dao.ArticleDao;
+import cn.pompip.lib.entity.ArticleEntity;
 import cn.pompip.myblog.exe.ArticleWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -15,10 +14,10 @@ import java.util.*;
 @Service
 public class ArticleServer {
     @Autowired
-    ArticleDao dao;
+    ArticleDao articleDao;
 
     public List<ArticleEntity> getIndexArticleList() {
-        List<ArticleEntity> findAll = dao.findAll(Sort.by(Sort.Direction.DESC, "createTimestamp"));
+        List<ArticleEntity> findAll = articleDao.findAll(Sort.by(Sort.Direction.DESC, "createTimestamp"));
         findAll.forEach(this::generateBrief);
         return findAll;
     }
@@ -29,13 +28,7 @@ public class ArticleServer {
         int lineNum = 0;
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            StringUtils.deleteAny(line, "#");
-            StringUtils.deleteAny(line, "*");
-            StringUtils.deleteAny(line, "<");
-            StringUtils.deleteAny(line, ">");
-            StringUtils.deleteAny(line, "`");
-            StringUtils.deleteAny(line, "/");
-
+            line = StringUtils.deleteAny(line, "#*<>`/");
             if (StringUtils.isEmpty(line)) {
                 continue;
             }
@@ -49,19 +42,19 @@ public class ArticleServer {
     }
 
     public List<ArticleEntity> getAllArticle() {
-        return dao.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        return articleDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     public ArticleEntity getOne(long id) {
 
-        return dao.findById(id).orElse(null);
+        return articleDao.findById(id).orElse(null);
 
     }
 
     public ArticleEntity saveArticle(String content){
         ArticleWrapper articleWrapper = new ArticleWrapper(content);
         ArticleEntity articleEntity = articleWrapper.createArticleEntity();
-        ArticleEntity save = dao.save(articleEntity);
+        ArticleEntity save = articleDao.save(articleEntity);
         return save;
     }
 
@@ -69,12 +62,12 @@ public class ArticleServer {
         ArticleEntity entity = getOne(id);
         entity.setContent(content);
         entity.setUpdateTimestamp(new Timestamp(System.currentTimeMillis()));
-        dao.save(entity);
+        articleDao.save(entity);
         return entity;
     }
 
     public void deleteArticle(Long id) {
-        dao.deleteById(id);
+        articleDao.deleteById(id);
     }
 
 }

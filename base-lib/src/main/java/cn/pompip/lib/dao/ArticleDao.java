@@ -1,6 +1,7 @@
-package cn.pompip.myblog.dao;
+package cn.pompip.lib.dao;
 
-import cn.pompip.myblog.entity.ArticleEntity;
+
+import cn.pompip.lib.entity.ArticleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

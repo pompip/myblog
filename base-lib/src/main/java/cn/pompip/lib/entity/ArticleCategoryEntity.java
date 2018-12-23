@@ -1,4 +1,4 @@
-package cn.pompip.myblog.entity;
+package cn.pompip.lib.entity;
 
 
 

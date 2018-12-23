@@ -1,6 +1,6 @@
 package cn.pompip.myblog.control;
 
-import cn.pompip.myblog.entity.ArticleEntity;
+import cn.pompip.lib.entity.ArticleEntity;
 import cn.pompip.myblog.server.ArticleServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ public class ArticleController {
 
     @PostMapping("/list")
     public List<ArticleEntity> getArticleList() {
-        return server.getIndexArticleList();
+        return server.getAllArticle();
     }
 
 

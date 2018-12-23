@@ -1,6 +1,6 @@
 package cn.pompip.myblog.exe;
 
-import cn.pompip.myblog.entity.ArticleEntity;
+import cn.pompip.lib.entity.ArticleEntity;
 
 import java.sql.Timestamp;
 import java.util.Scanner;
