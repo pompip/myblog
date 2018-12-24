@@ -2,4 +2,6 @@ rootProject.name = 'myblog'
 rootProject.buildFileName = "build.gradle"
 include 'base-lib'
 include 'admin'
+include 'cloud'
+include 'blog'
 

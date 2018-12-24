@@ -11,8 +11,6 @@ buildscript {
 group "cn.pompip"
 version '1.0'
 
-apply plugin: 'java'
-
 sourceCompatibility = 1.8
 apply plugin: "eclipse"
 apply plugin: "org.springframework.boot"
@@ -20,15 +18,14 @@ apply plugin: "io.spring.dependency-management"
 apply plugin: 'java'
 repositories {
     mavenCentral()
+    maven { url "https://repo.spring.io/milestone" }
 }
 
 
 jar {
     enabled = true
 }
-repositories {
-    mavenCentral()
-}
+
 
 bootRun {
     sourceResources sourceSets.main
@@ -48,5 +45,14 @@ dependencies {
 //    compile("org.jetbrains.kotlin:kotlin-reflect")
     runtime("mysql:mysql-connector-java")
 
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
+
+//ext['springCloudVersion'] = 'Greenwich.RC2'
+//dependencyManagement {
+//    imports {
+//        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+//    }
+//}
