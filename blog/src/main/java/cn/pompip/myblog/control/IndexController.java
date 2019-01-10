@@ -1,6 +1,7 @@
 package cn.pompip.myblog.control;
 
 import cn.pompip.lib.entity.ArticleEntity;
+import cn.pompip.myblog.model.WebPage;
 import cn.pompip.myblog.server.ArticleServer;
 
 import static cn.pompip.myblog.utils.LogUtil.loge;
@@ -11,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
 
 @Controller
 public class IndexController {
@@ -20,8 +20,17 @@ public class IndexController {
 
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
-        List<ArticleEntity> articleList = server.getIndexArticleList();
-        model.addAttribute("articleList", articleList);
+        WebPage<ArticleEntity> webPage = server.getArticleListWithPage(0);
+        model.addAttribute("articleList", webPage.getContent());
+        model.addAttribute("webPages",webPage);
+        return "index";
+    }
+
+    @GetMapping("page/{page}")
+    public String page(@PathVariable int page, Model model) {
+        WebPage<ArticleEntity> webPage = server.getArticleListWithPage(page);
+        model.addAttribute("articleList", webPage.getContent());
+        model.addAttribute("webPages",webPage);
         return "index";
     }
 

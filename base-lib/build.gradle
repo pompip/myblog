@@ -21,18 +21,15 @@ repositories {
     maven { url "https://repo.spring.io/milestone" }
 }
 
-
 jar {
     enabled = true
 }
-
 
 bootRun {
     sourceResources sourceSets.main
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-starter-web")
@@ -47,12 +44,6 @@ dependencies {
 
     compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 
+    testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
-
-//ext['springCloudVersion'] = 'Greenwich.RC2'
-//dependencyManagement {
-//    imports {
-//        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-//    }
-//}

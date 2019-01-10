@@ -1,37 +1,48 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+layout:decorate="~{layout/layout.html}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>首页</title>
-    <link rel="stylesheet" href="/css/apollo.css"/>
 </head>
-<body>
-<header th:replace="header::header">
 
-</header>
-<main class="container">
-    <ul class="home post-list" th:each="article:${articleList}">
-        <li class="post-list-item">
-            <article class="post-block">
-                <h2 class="post-title">
-                    <a href="" class="post-title-link" th:href="@{/archive/{id}(id=${article.getId()})}"
+<body class="container" >
+
+<main class="row" layout:fragment="content">
+    <div class="col-sm-9">
+        <div class="card" th:each="article:${articleList}">
+            <div class="card-body">
+                <h4 class="text-primary">
+                    <a href="" class="text-muted" th:href="@{/archive/{id}(id=${article.getId()})}"
                        th:text="${article.getTitle()}">
                     </a>
-                </h2>
-                <div class="post-info" th:text="${article.getUpdateTimestamp()}"></div>
-                <div class="post-content" th:utext="${article.getContent()}">
+                </h4>
+                <p class="text-info" th:text="${article.getUpdateTimestamp()}"></p>
+                <p class="text-dark" th:utext="${article.getContent()}">
                     some thing
-                </div>
-                <a href="" class="read-more" th:href="@{/archive/{id}(id=${article.getId()})}">more</a>
-            </article>
-        </li>
-    </ul>
+                </p>
+                <a href="" class="text-success" th:href="@{/archive/{id}(id=${article.getId()})}">more</a>
+            </div>
+        </div>
+
+        <ul class="pagination" >
+            <li class="page-item" th:if="${webPages.current!=0}">
+                <a class="page-link" th:href="@{/page/{page}(page = ${webPages.getCurrent()-1})}">Previous</a></li>
+            <li class="page-item active" th:each="p:${#numbers.sequence(0,webPages.getTotal()-1)}"
+                th:class="${p==webPages.getCurrent()}?'page-item active':'page-item'">
+                <a class="page-link" th:text="${p+1}" th:href="@{/page/{p}(p=${p})}" >1</a></li>
+            <li class="page-item" th:if="${webPages.current!=webPages.getTotal()-1}">
+                <a class="page-link" th:href="@{/page/{page}(page = ${webPages.getCurrent()+1})}">Next</a></li>
+        </ul>
+
+    </div>
+
+    <aside class="col-sm-3">
+        <p><img class="rounded-circle img-fluid mx-auto" src="/img/zxq.jpg"/></p>
+        <p>关于我的介绍..</p>
+        <h3>一些链接</h3>
+        <p>说明文本</p>
+    </aside>
 </main>
-<div class="paginator"><a href="/" class="prev">PREV</a><a href="/page/3/" class="next">NEXT</a></div>
-<footer th:replace="footer::footer">
-
-</footer>
-
 </body>
 </html>

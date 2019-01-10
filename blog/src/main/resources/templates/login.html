@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.w3.org/1999/html">
+<html lang="zh" xmlns:th="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout/layout.html">
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <link rel="stylesheet" href="/css/apollo.css">
+    <!--<link rel="stylesheet" href="/css/apollo.css">-->
     <style>
         footer {
             flex: 0 0 auto;
@@ -21,8 +22,10 @@
                 "/user/login",
                 {"name": name, "pwd": password},
                 function (data) {
-                    alert(data);
+                    $('#myModal').modal("show");
+                    $("#dialog_content").text(data);
                     if (data === 1) {
+
                         window.location.href = "/"
                     } else {
 
@@ -41,19 +44,55 @@
     </script>
 </head>
 <body>
-<header th:replace="header::header"></header>
-<div id="loginform" style="text-align: center">
-    <div>
-        账户： <input type="text" name="name" id="name"/>
-    </div>
-    <div>
-        密码： <input type="password" name="password" id="pwd"/>
-    </div>
-    <button onclick="login()">登陆</button>
-    <button>注册</button>
-    <button onclick="logout()">注销</button>
+<main layout:fragment="content">
+    <div class="row">
 
-</div>
-<footer th:replace="footer::footer"></footer>
+        <div class=" form-group col-sm-4 offset-sm-2">
+            <label for="name">账户： </label><input type="text" id="name" class="form-control"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-4 offset-sm-2">
+            <label for="pwd"> 密码：</label> <input type="password" id="pwd" class="form-control"/>
+        </div>
+    </div>
+    <div class="offset-sm-2">
+        <button onclick="login()" class="btn btn-primary">登陆</button>
+        <button class="btn btn-default" >注册</button>
+        <button onclick="logout()" class="btn btn-primary">注销</button>
+    </div>
+    <p id="test">hello world</p>
+    <script>
+        fetch("/article/list",{method: 'POST',
+            mode: 'no-cors'}).then(function(response) {
+            return response.json();
+        }).then(function(data) {
+
+            for(var da in data){
+                $("#test").append("<p>"+da["content"]+"</p>")
+            }
+
+            console.log(data);
+        }).catch(function(e) {
+            console.error(e)
+        });
+    </script>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">登录结果</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="dialog_content">
+                    模态框内容..
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 </html>

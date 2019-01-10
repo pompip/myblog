@@ -3,7 +3,12 @@ package cn.pompip.myblog.server;
 import cn.pompip.lib.dao.ArticleDao;
 import cn.pompip.lib.entity.ArticleEntity;
 import cn.pompip.myblog.exe.ArticleWrapper;
+import cn.pompip.myblog.model.WebPage;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -15,11 +20,27 @@ import java.util.*;
 public class ArticleServer {
     @Autowired
     ArticleDao articleDao;
+    @Autowired
+    MarkdownService markdownService;
 
     public List<ArticleEntity> getIndexArticleList() {
         List<ArticleEntity> findAll = articleDao.findAll(Sort.by(Sort.Direction.DESC, "createTimestamp"));
         findAll.forEach(this::generateBrief);
         return findAll;
+    }
+
+    public WebPage<ArticleEntity> getArticleListWithPage(int pageNum) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTimestamp");
+        Page<ArticleEntity> pages = articleDao.findAll(PageRequest.of(pageNum,10,sort));
+        if (pages.isEmpty()){
+            return null;
+        }
+//        List<ArticleEntity> findAll = pages.getContent();
+//        findAll.forEach(this::generateBrief);
+        pages.forEach(this::generateBrief);
+        WebPage<ArticleEntity> webPage = new WebPage<>(pages);
+
+        return webPage;
     }
 
     private void generateBrief(ArticleEntity articleEntity) {
@@ -46,10 +67,13 @@ public class ArticleServer {
     }
 
     public ArticleEntity getOne(long id) {
-
-        return articleDao.findById(id).orElse(null);
+        ArticleEntity articleEntity =  articleDao.findById(id).orElse(null);
+        articleEntity.setContent(markdownService.markdown2Html(articleEntity.getContent()));
+        return articleEntity;
 
     }
+
+
 
     public ArticleEntity saveArticle(String content){
         ArticleWrapper articleWrapper = new ArticleWrapper(content);
