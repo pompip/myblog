@@ -4,16 +4,18 @@
 <head>
     <title th:text="${article.getTitle()}">档案</title>
     <link rel="stylesheet" href="/css/markdown-style.css"/>
-    <script src="/js/showdown.js"></script>
+    <!--<script src="/js/showdown.js"></script>-->
 </head>
 <body class="container">
 <main class="row" layout:fragment="content">
-    <div  class="col-sm-9 card">
-        <article class="markdown-body ">
+    <div  class="col-sm-9 ">
+        <div class="card">
+        <article class="markdown-body card-body">
             <h3 th:text="${article.getTitle()}">浅谈 Android 编程思想和架构</h3>
             <div th:text="${article.getUpdateTimestamp()}">Mar 11, 2016</div>
             <div id="markdown-content" th:utext="${article.getContent()}">this is html</div>
         </article>
+        </div>
     </div>
     <!--<script th:inline="javascript">-->
         <!--var content = [[${article.getContent()}]]-->

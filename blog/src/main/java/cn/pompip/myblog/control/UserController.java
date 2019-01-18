@@ -17,8 +17,13 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/register")
+    public String register() {
+        return "login";
+    }
+
     @ResponseBody
-    @PostMapping("/login")
+    @PostMapping("/login_in")
     public int login(String name, String pwd, HttpSession session) {
         if ("chong".equals(name) && pwd.equals("314159")) {
             session.setAttribute("user", "chong");

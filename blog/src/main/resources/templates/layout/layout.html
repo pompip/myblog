@@ -8,8 +8,30 @@
         <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
         <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <title>首页</title>
-        <!--<link rel="stylesheet" href="/css/apollo.css"/>-->
+        <style>
+            main {
+                min-height: 90%;
+            }
 
+            html, body {
+                height: 100%;
+            }
+        </style>
+        <script>
+            function logout() {
+                $.post("/logout", {"username": "chong"}, function (data) {
+                    if (data === 1) {
+                        alert("logout")
+                    }
+                })
+            }
+
+            $(document).ready(function () {
+                $("#logout").click(function (){
+                    logout();
+                })
+            });
+        </script>
     </head>
     <body class="container">
         <header>
@@ -31,10 +53,19 @@
                         <a class="nav-link" href="https://github.com/pompip">Github</a>
                     </li>
                 </ul>
+                <div class="flex-grow-1 "></div>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/login">登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link" >注销</a>
+                    </li>
+                </ul>
             </nav>
         </header>
         <main layout:fragment="content"></main>
-        <footer >
+        <footer class="align-content-end justify-content-center row">
             <div class="copyright">
                 <p>CopyRight &#169;<a href="https://github.com/pompip" target="_blank">pompip</a>. Some Rights Reserved
                     <a href="http://www.miitbeian.gov.cn/" target="view_window">鄂ICP备16020692号</a>

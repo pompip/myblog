@@ -18,10 +18,14 @@ import java.util.*;
 
 @Service
 public class ArticleServer {
+    private ArticleDao articleDao;
+    private MarkdownService markdownService;
+
     @Autowired
-    ArticleDao articleDao;
-    @Autowired
-    MarkdownService markdownService;
+    public ArticleServer(ArticleDao articleDao,MarkdownService markdownService) {
+        this.articleDao = articleDao;
+        this.markdownService = markdownService;
+    }
 
     public List<ArticleEntity> getIndexArticleList() {
         List<ArticleEntity> findAll = articleDao.findAll(Sort.by(Sort.Direction.DESC, "createTimestamp"));
@@ -35,11 +39,8 @@ public class ArticleServer {
         if (pages.isEmpty()){
             return null;
         }
-//        List<ArticleEntity> findAll = pages.getContent();
-//        findAll.forEach(this::generateBrief);
         pages.forEach(this::generateBrief);
         WebPage<ArticleEntity> webPage = new WebPage<>(pages);
-
         return webPage;
     }
 

@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
-    <!--<link rel="stylesheet" href="/css/apollo.css">-->
     <style>
         footer {
             flex: 0 0 auto;
@@ -25,58 +24,34 @@
                     $('#myModal').modal("show");
                     $("#dialog_content").text(data);
                     if (data === 1) {
-
                         window.location.href = "/"
                     } else {
-
                     }
                 }
             )
-        }
-
-        function logout() {
-            $.post("/user/logout", function (data) {
-                if (data === 1) {
-                    alert("logout")
-                }
-            })
         }
     </script>
 </head>
 <body>
 <main layout:fragment="content">
-    <div class="row">
-
-        <div class=" form-group col-sm-4 offset-sm-2">
-            <label for="name">账户： </label><input type="text" id="name" class="form-control"/>
+    <form action="/login" method="post">
+        <div class="row">
+            <div class=" form-group col-sm-4 offset-sm-2">
+                <label for="username">账户： </label><input type="text" id="username" name="username" class="form-control"/>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-sm-4 offset-sm-2">
-            <label for="pwd"> 密码：</label> <input type="password" id="pwd" class="form-control"/>
+        <div class="row">
+            <div class="form-group col-sm-4 offset-sm-2">
+                <label for="password"> 密码：</label> <input type="password" id="password" name="password" class="form-control"/>
+            </div>
         </div>
-    </div>
-    <div class="offset-sm-2">
-        <button onclick="login()" class="btn btn-primary">登陆</button>
-        <button class="btn btn-default" >注册</button>
-        <button onclick="logout()" class="btn btn-primary">注销</button>
-    </div>
-    <p id="test">hello world</p>
-    <script>
-        fetch("/article/list",{method: 'POST',
-            mode: 'no-cors'}).then(function(response) {
-            return response.json();
-        }).then(function(data) {
+        <div class="offset-sm-2">
+            <button class="btn btn-primary" type="submit">登陆</button>
+            <button class="btn btn-default">注册</button>
+            <button onclick="logout()" class="btn btn-primary">注销</button>
+        </div>
+    </form>
 
-            for(var da in data){
-                $("#test").append("<p>"+da["content"]+"</p>")
-            }
-
-            console.log(data);
-        }).catch(function(e) {
-            console.error(e)
-        });
-    </script>
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">

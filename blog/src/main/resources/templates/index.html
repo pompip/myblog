@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-layout:decorate="~{layout/layout.html}">
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{layout/layout.html}">
 <head>
     <title>首页</title>
+
 </head>
-
-<body class="container" >
-
+<body class="container">
 <main class="row" layout:fragment="content">
     <div class="col-sm-9">
         <div class="card" th:each="article:${articleList}">
@@ -24,24 +23,22 @@ layout:decorate="~{layout/layout.html}">
                 <a href="" class="text-success" th:href="@{/archive/{id}(id=${article.getId()})}">more</a>
             </div>
         </div>
-
-        <ul class="pagination" >
+        <ul class="pagination">
             <li class="page-item" th:if="${webPages.current!=0}">
                 <a class="page-link" th:href="@{/page/{page}(page = ${webPages.getCurrent()-1})}">Previous</a></li>
             <li class="page-item active" th:each="p:${#numbers.sequence(0,webPages.getTotal()-1)}"
                 th:class="${p==webPages.getCurrent()}?'page-item active':'page-item'">
-                <a class="page-link" th:text="${p+1}" th:href="@{/page/{p}(p=${p})}" >1</a></li>
+                <a class="page-link" th:text="${p+1}" th:href="@{/page/{p}(p=${p})}">1</a></li>
             <li class="page-item" th:if="${webPages.current!=webPages.getTotal()-1}">
                 <a class="page-link" th:href="@{/page/{page}(page = ${webPages.getCurrent()+1})}">Next</a></li>
         </ul>
-
     </div>
-
     <aside class="col-sm-3">
         <p><img class="rounded-circle img-fluid mx-auto" src="/img/zxq.jpg"/></p>
-        <p>关于我的介绍..</p>
-        <h3>一些链接</h3>
-        <p>说明文本</p>
+        <h3>关于我...</h3>
+        <p>本人太丑...<br>
+            头像是老婆...<br>
+            作为程序员，最值得夸赞的成就是取到现在的老婆</p>
     </aside>
 </main>
 </body>

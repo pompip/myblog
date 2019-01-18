@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-    @RequestMapping("/article")
+@RequestMapping("/article")
 public class ArticleController {
+    private ArticleServer server;
 
     @Autowired
-    ArticleServer server;
+    public ArticleController(ArticleServer server) {
+        this.server = server;
+    }
 
     @PostMapping("/list")
     public List<ArticleEntity> getArticleList() {
@@ -22,7 +25,7 @@ public class ArticleController {
 
     @PostMapping("/{id}")
     public ArticleEntity getArticle(@PathVariable long id) {
-       return server.getOne(id);
+        return server.getOne(id);
     }
 
     @PostMapping("/save")
