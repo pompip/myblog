@@ -1,8 +1,6 @@
 package cn.pompip.myblog.entity;
 
-
 import java.sql.Timestamp;
-
 
 public class ArticleEntity {
 

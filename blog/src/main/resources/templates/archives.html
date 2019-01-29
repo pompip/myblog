@@ -3,43 +3,35 @@
       xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <title>档案</title>
-    <style>
-        a.read-more {
-            float: right;
-            margin-right: 2rem;
+    <script>
+        function clickDelete(id) {
+            fetch("/article/delete/" + id).then(function (response) {
+                if (response.status === 200) {
+                    location.reload();
+                }
+            });
         }
-    </style>
+    </script>
 </head>
 <body class="container">
 
 <main class="row" layout:fragment="content">
     <div class="col-sm-9">
-        <h2 >2018</h2>
+        <h2>2018</h2>
         <ul class="list-group">
-        <li class="list-group-item" th:each="art:${articleList}">
-                <div class="post-info" th:text="${art.getCreateTimestamp()}">Mar 19, 2018</div>
-                <a href="" class="post-title-link" th:text="${art.getTitle()}"
-                   th:href="@{/archive/{id}(id=${art.getId()})}">Pure Writer
-                    3.0 - Never Lost Content Editor</a>
-                <div class="read-more" style="float: right" id="delete" th:value="${art.getId()}"> 删除</div>
-                <a href="" class="read-more" th:href="@{/markdown/{id}(id=${art.getId()})}"> 编辑 </a>
-        </li>
+            <li class="list-group-item " th:each="art:${articleList}">
+                <div class="pl-2 row" th:text="${art.getCreateTimestamp()}">Mar 19, 2018</div>
+                <div class="row">
+                    <h4 class="col-10"><a  th:href="@{/archive/{id}(id=${art.getId()})}" th:text="${art.getTitle()}">
+                        标题</a></h4>
+                    <a class="col-1 text-primary" th:href="@{/markdown/{id}(id=${art.getId()})}"> 编辑 </a>
+                    <a class="col-1 text-secondary" th:onclick="'javascript:clickDelete('+${art.getId()}+')'"> 删除</a>
+                </div>
+            </li>
 
         </ul>
     </div>
 </main>
-<script>
-    $("#delete").click(function () {
-        alert(this.attr("value"));
-        // $.ajax({
-        //     type: "post",
-        //     url: "article/delete",
-        //     data:{"id":$("#delete").valueOf()},
-        //     success: function (data) {
-        //         window.location.reload();
-        //     }
-        // })
-    });
-</script>
+
 </body>
 </html>

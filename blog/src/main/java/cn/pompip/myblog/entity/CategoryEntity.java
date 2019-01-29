@@ -1,17 +1,14 @@
 package cn.pompip.myblog.entity;
 
 import java.sql.Timestamp;
-import java.util.List;
 
-public class ArticleCategoryEntity {
+public class CategoryEntity {
 
     private int id;
     private String name;
     private int position;
     private Timestamp createTimestamp;
 
-
-    private List<ArticleEntity> articleEntityList;
 
     public int getId() {
         return id;

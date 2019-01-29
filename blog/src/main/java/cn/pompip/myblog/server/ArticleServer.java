@@ -95,7 +95,7 @@ public class ArticleServer {
 
     }
 
-    public void deleteArticle(Long id) {
+    public void deleteArticle(long id) {
         articleMapper.deleteById(id);
     }
 

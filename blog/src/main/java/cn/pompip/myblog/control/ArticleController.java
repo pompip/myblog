@@ -39,7 +39,7 @@ public class ArticleController {
         return server.updateArticle(content, id).getId();
     }
 
-    @PostMapping("/delete/{id}")
+    @RequestMapping("/delete/{id}")
     public void deleteArticle(@PathVariable long id) {
         server.deleteArticle(id);
     }

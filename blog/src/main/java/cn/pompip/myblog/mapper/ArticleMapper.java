@@ -26,7 +26,8 @@ public interface ArticleMapper {
     @SelectKey(resultType = long.class,before = false ,keyProperty = "id",statement = "select LAST_INSERT_ID()")
     long insert( ArticleEntity entity);
 
-    void deleteById(Long id);
+    @Delete("delete from article_entity where id = #{id}")
+    void deleteById(@Param("id") long id);
 
     @Select("select * from article_entity where id = #{id}")
     Optional<ArticleEntity> findById(long id);
