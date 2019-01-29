@@ -115,6 +115,8 @@
     var editor = $("#editor");
     var preview = $("#preview");
     var converter = new showdown.Converter();
+    converter.setOption('tables', true);
+    converter.setFlavor('github');
     preview.html(converter.makeHtml(editor.val()));
 
     editor.on("input",function (e) {

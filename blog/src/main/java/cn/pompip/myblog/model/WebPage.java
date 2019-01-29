@@ -1,28 +1,31 @@
 package cn.pompip.myblog.model;
 
 
-import org.springframework.data.domain.Page;
-import org.thymeleaf.expression.Strings;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WebPage <T>{
-    private int total;
-    private int current;
+    private long total;
+    private long current;
     private List<T> content;
 
-    public   WebPage(Page<T> page){
-        total = page.getTotalPages();
-        current = page.getPageable().getPageNumber();
-        content = page.getContent();
+    public void setTotal(long total) {
+        this.total = total;
     }
 
-    public int getTotal() {
+    public void setCurrent(long current) {
+        this.current = current;
+    }
+
+    public void setContent(List<T> content) {
+        this.content = content;
+    }
+
+    public long getTotal() {
         return total;
     }
 
-    public int getCurrent() {
+    public long getCurrent() {
         return current;
     }
 

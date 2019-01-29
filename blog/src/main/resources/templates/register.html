@@ -34,19 +34,19 @@
 </head>
 <body>
 <main layout:fragment="content">
-    <form action="/login" method="post" >
+    <form action="/login" method="post">
         <div class="row">
-            <div class=" form-group col-sm-4">
+            <div class=" form-group col-sm-4 offset-sm-2">
                 <label for="username">账户： </label><input type="text" id="username" name="username" class="form-control"/>
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-sm-4">
+            <div class="form-group col-sm-4 offset-sm-2">
                 <label for="password"> 密码：</label> <input type="password" id="password" name="password" class="form-control"/>
             </div>
         </div>
-        <div >
-            <button class="btn btn-primary" type="submit">登陆</button>
+        <div class="offset-sm-2">
+            <button class="btn btn-primary" type="submit">注册</button>
         </div>
     </form>
 

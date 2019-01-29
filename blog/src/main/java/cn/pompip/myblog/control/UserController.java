@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/register")
     public String register() {
-        return "login";
+        return "register";
     }
 
     @ResponseBody

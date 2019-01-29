@@ -1,14 +1,13 @@
-package cn.pompip.lib.entity;
+package cn.pompip.myblog.entity;
 
-import javax.persistence.*;
+
 import java.sql.Timestamp;
 
-@Entity
+
 public class ArticleEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private long id;
-    @Column(columnDefinition = "TEXT")
+
     private String content;
     private Timestamp createTimestamp = new Timestamp(System.currentTimeMillis());
     private Timestamp updateTimestamp = new Timestamp(System.currentTimeMillis());
@@ -63,6 +62,7 @@ public class ArticleEntity {
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
+
 
     public String getTitle() {
         return title;

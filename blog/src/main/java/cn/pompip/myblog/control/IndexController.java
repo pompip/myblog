@@ -1,6 +1,6 @@
 package cn.pompip.myblog.control;
 
-import cn.pompip.lib.entity.ArticleEntity;
+import cn.pompip.myblog.entity.ArticleEntity;
 import cn.pompip.myblog.model.WebPage;
 import cn.pompip.myblog.server.ArticleServer;
 
@@ -47,7 +47,7 @@ public class IndexController {
 
     @GetMapping("/archive/{id}")
     public String previewArticle(@PathVariable long id, Model model) {
-        model.addAttribute("article", server.getOne(id));
+        model.addAttribute("article", server.getArticleHTML(id));
         return "article_content";
     }
 

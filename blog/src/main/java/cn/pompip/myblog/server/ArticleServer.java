@@ -1,15 +1,12 @@
 package cn.pompip.myblog.server;
 
-import cn.pompip.lib.dao.ArticleDao;
-import cn.pompip.lib.entity.ArticleEntity;
+import cn.pompip.myblog.entity.ArticleEntity;
 import cn.pompip.myblog.exe.ArticleWrapper;
+import cn.pompip.myblog.mapper.ArticleMapper;
 import cn.pompip.myblog.model.WebPage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import java.sql.Timestamp;
@@ -18,29 +15,33 @@ import java.util.*;
 
 @Service
 public class ArticleServer {
-    private ArticleDao articleDao;
+    private ArticleMapper articleMapper;
     private MarkdownService markdownService;
 
     @Autowired
-    public ArticleServer(ArticleDao articleDao,MarkdownService markdownService) {
-        this.articleDao = articleDao;
+    public ArticleServer(ArticleMapper articleMapper, MarkdownService markdownService) {
+        this.articleMapper = articleMapper;
         this.markdownService = markdownService;
     }
 
     public List<ArticleEntity> getIndexArticleList() {
-        List<ArticleEntity> findAll = articleDao.findAll(Sort.by(Sort.Direction.DESC, "createTimestamp"));
+        List<ArticleEntity> findAll = articleMapper.findAll();
         findAll.forEach(this::generateBrief);
         return findAll;
     }
 
     public WebPage<ArticleEntity> getArticleListWithPage(int pageNum) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "createTimestamp");
-        Page<ArticleEntity> pages = articleDao.findAll(PageRequest.of(pageNum,10,sort));
+
+        List<ArticleEntity> pages = articleMapper.findAllLimit(pageNum*10);
         if (pages.isEmpty()){
             return null;
         }
         pages.forEach(this::generateBrief);
-        WebPage<ArticleEntity> webPage = new WebPage<>(pages);
+        long total = articleMapper.count();
+        WebPage<ArticleEntity> webPage = new WebPage<>();
+        webPage.setContent(pages);
+        webPage.setCurrent(pageNum);
+        webPage.setTotal(total/10+1);//todo
         return webPage;
     }
 
@@ -64,35 +65,38 @@ public class ArticleServer {
     }
 
     public List<ArticleEntity> getAllArticle() {
-        return articleDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        return articleMapper.findAll();
     }
 
-    public ArticleEntity getOne(long id) {
-        ArticleEntity articleEntity =  articleDao.findById(id).orElse(null);
+    public ArticleEntity getArticleHTML(long id) {
+        ArticleEntity articleEntity =  articleMapper.findById(id).orElse(null);
         articleEntity.setContent(markdownService.markdown2Html(articleEntity.getContent()));
         return articleEntity;
 
     }
+    public ArticleEntity getArticle(long id) {
+        return articleMapper.findById(id).orElse(null);
+    }
 
 
-
-    public ArticleEntity saveArticle(String content){
+    public long saveArticle(String content){
         ArticleWrapper articleWrapper = new ArticleWrapper(content);
         ArticleEntity articleEntity = articleWrapper.createArticleEntity();
-        ArticleEntity save = articleDao.save(articleEntity);
-        return save;
+        articleEntity.setAuthorId(1);
+        articleEntity.setCategoryId(1);
+        return articleMapper.insert(articleEntity);
     }
 
     public ArticleEntity updateArticle(String content, Long id) {
-        ArticleEntity entity = getOne(id);
-        entity.setContent(content);
-        entity.setUpdateTimestamp(new Timestamp(System.currentTimeMillis()));
-        articleDao.save(entity);
-        return entity;
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+         articleMapper.updateContent(id,content,timestamp);
+        return getArticle(id);
+
     }
 
     public void deleteArticle(Long id) {
-        articleDao.deleteById(id);
+        articleMapper.deleteById(id);
     }
 
 }

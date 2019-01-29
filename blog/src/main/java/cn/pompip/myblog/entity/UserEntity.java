@@ -1,43 +1,82 @@
 package cn.pompip.myblog.entity;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
 
-public class UserEntity implements UserDetails {
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+import java.sql.Timestamp;
+
+
+public class UserEntity {
+
+    private long uid;
+    private String name;
+    private String password;
+    private String nickName;
+    private String email;
+    private String phone;
+    private Timestamp createTimestamp;
+    private Timestamp updateTimestamp;
+
+    public long getUid() {
+        return uid;
     }
 
-    @Override
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPassword() {
-        return null;
+        return password;
     }
 
-    @Override
-    public String getUsername() {
-        return null;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
+    public String getNickName() {
+        return nickName;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
+    public String getEmail() {
+        return email;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return false;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Timestamp getCreateTimestamp() {
+        return createTimestamp;
+    }
+
+    public void setCreateTimestamp(Timestamp createTimestamp) {
+        this.createTimestamp = createTimestamp;
+    }
+
+    public Timestamp getUpdateTimestamp() {
+        return updateTimestamp;
+    }
+
+    public void setUpdateTimestamp(Timestamp updateTimestamp) {
+        this.updateTimestamp = updateTimestamp;
     }
 }

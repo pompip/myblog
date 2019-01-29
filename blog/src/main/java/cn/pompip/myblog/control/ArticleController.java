@@ -1,6 +1,6 @@
 package cn.pompip.myblog.control;
 
-import cn.pompip.lib.entity.ArticleEntity;
+import cn.pompip.myblog.entity.ArticleEntity;
 import cn.pompip.myblog.server.ArticleServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +25,12 @@ public class ArticleController {
 
     @PostMapping("/{id}")
     public ArticleEntity getArticle(@PathVariable long id) {
-        return server.getOne(id);
+        return server.getArticle(id);
     }
 
     @PostMapping("/save")
     public long saveArticle(String content) {
-        return server.saveArticle(content).getId();
+        return server.saveArticle(content);
     }
 
 
