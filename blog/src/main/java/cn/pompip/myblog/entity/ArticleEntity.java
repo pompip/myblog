@@ -1,14 +1,15 @@
 package cn.pompip.myblog.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class ArticleEntity {
 
     private long id;
 
     private String content;
-    private Timestamp createTimestamp = new Timestamp(System.currentTimeMillis());
-    private Timestamp updateTimestamp = new Timestamp(System.currentTimeMillis());
+    private Timestamp createTimestamp ;
+    private Timestamp updateTimestamp ;
     private long authorId;
     private int categoryId;
     private String title;

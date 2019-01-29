@@ -2,6 +2,7 @@ package cn.pompip.myblog.mapper;
 
 import cn.pompip.myblog.entity.ArticleEntity;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -11,9 +12,13 @@ import java.util.Optional;
 public interface ArticleMapper {
 
     @Select("select * from article_entity")
+    @Results({@Result(column = "create_timestamp",property = "createTimestamp",jdbcType = JdbcType.TIMESTAMP,javaType = Timestamp.class),
+            @Result(column = "update_timestamp",property = "updateTimestamp",jdbcType = JdbcType.TIMESTAMP,javaType = Timestamp.class)})
     List<ArticleEntity> findAll();
 
     @Select("select * from article_entity order by create_timestamp DESC limit #{page},10")
+    @Results({@Result(column = "create_timestamp",property = "createTimestamp",jdbcType = JdbcType.TIMESTAMP,javaType = Timestamp.class),
+            @Result(column = "update_timestamp",property = "updateTimestamp",jdbcType = JdbcType.TIMESTAMP,javaType = Timestamp.class)})
     List<ArticleEntity> findAllLimit(@Param("page") int page);
 
     @Select("select count(*) from article_entity")
@@ -30,6 +35,8 @@ public interface ArticleMapper {
     void deleteById(@Param("id") long id);
 
     @Select("select * from article_entity where id = #{id}")
+    @Results({@Result(column = "create_timestamp",property = "createTimestamp",javaType = Timestamp.class),
+            @Result(column = "update_timestamp",property = "updateTimestamp",javaType = Timestamp.class)})
     Optional<ArticleEntity> findById(long id);
 
 }

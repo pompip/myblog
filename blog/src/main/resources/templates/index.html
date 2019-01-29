@@ -16,7 +16,7 @@
                        th:text="${article.getTitle()}">
                     </a>
                 </h4>
-                <p class="text-info" th:text="${article.getUpdateTimestamp()}"></p>
+                <p class="text-info" th:text="${#dates.format(article.getUpdateTimestamp())}"></p>
                 <p class="text-dark" th:utext="${article.getContent()}">
                     some thing
                 </p>

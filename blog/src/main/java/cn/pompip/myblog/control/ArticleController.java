@@ -33,7 +33,6 @@ public class ArticleController {
         return server.saveArticle(content);
     }
 
-
     @PostMapping("/update")
     public long updateArticle(String content, long id) {
         return server.updateArticle(content, id).getId();

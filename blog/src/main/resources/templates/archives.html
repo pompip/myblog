@@ -20,7 +20,7 @@
         <h2>2018</h2>
         <ul class="list-group">
             <li class="list-group-item " th:each="art:${articleList}">
-                <div class="pl-2 row" th:text="${art.getCreateTimestamp()}">Mar 19, 2018</div>
+                <div class="pl-2 row" th:text="${#dates.format(art.getCreateTimestamp())}">Mar 19, 2018</div>
                 <div class="row">
                     <h4 class="col-10"><a  th:href="@{/archive/{id}(id=${art.getId()})}" th:text="${art.getTitle()}">
                         标题</a></h4>
