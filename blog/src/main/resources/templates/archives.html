@@ -25,7 +25,7 @@
                     <h4 class="col-10"><a  th:href="@{/archive/{id}(id=${art.getId()})}" th:text="${art.getTitle()}">
                         标题</a></h4>
                     <a class="col-1 text-primary" th:href="@{/markdown/{id}(id=${art.getId()})}"> 编辑 </a>
-                    <a class="col-1 text-secondary" th:onclick="'javascript:clickDelete('+${art.getId()}+')'"> 删除</a>
+                    <a class="col-1 text-secondary" href="#" th:onclick="'javascript:clickDelete('+${art.getId()}+')'"> 删除</a>
                 </div>
             </li>
 
