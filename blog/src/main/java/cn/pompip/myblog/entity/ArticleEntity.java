@@ -14,6 +14,26 @@ public class ArticleEntity {
     private int categoryId;
     private String title;
 
+    private AuthorEntity authorEntity;
+    private CategoryEntity categoryEntity;
+
+
+    public CategoryEntity getCategoryEntity() {
+        return categoryEntity;
+    }
+
+    public void setCategoryEntity(CategoryEntity categoryEntity) {
+        this.categoryEntity = categoryEntity;
+    }
+
+    public AuthorEntity getAuthorEntity() {
+        return authorEntity;
+    }
+
+    public void setAuthorEntity(AuthorEntity authorEntity) {
+        this.authorEntity = authorEntity;
+    }
+
     public long getId() {
         return id;
     }
@@ -69,5 +89,18 @@ public class ArticleEntity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "ArticleEntity{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", createTimestamp=" + createTimestamp +
+                ", updateTimestamp=" + updateTimestamp +
+                ", authorId=" + authorId +
+                ", categoryId=" + categoryId +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

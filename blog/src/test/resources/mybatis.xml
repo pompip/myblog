@@ -3,6 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
     <environments default="development">
         <!-- 可以配置多个环境指向不同数据库，每个数据库可分别用一个SqlSessionFactory创建实例 -->
         <environment id="development">
@@ -22,7 +25,8 @@
         </environment>
     </environments>
     <mappers>
-        <!--<mapper resource="mappers/StuMapper.xml" />-->
-        <mapper class="cn.pompip.myblog.mapper.ArticleMapper"/>
+        <mapper resource="mappers/AuthorMapper.xml" />
+        <mapper class="cn.pompip.myblog.mapper.ArticleMapper" />
+        <mapper resource="mappers/ArticleMapper.xml"/>
     </mappers>
 </configuration>

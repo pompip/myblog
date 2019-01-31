@@ -1,16 +1,18 @@
 package cn.pompip.myblog.entity;
 
+import java.util.List;
+
 public class AuthorEntity {
 
-    private Long id;
-
+    private long id;
     private String name;
+    private List<ArticleEntity> articleEntityList;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -22,5 +24,20 @@ public class AuthorEntity {
         this.name = name;
     }
 
+    public List<ArticleEntity> getArticleEntityList() {
+        return articleEntityList;
+    }
 
+    public void setArticleEntityList(List<ArticleEntity> articleEntityList) {
+        this.articleEntityList = articleEntityList;
+    }
+
+    @Override
+    public String toString() {
+        return "AuthorEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", articleEntityList=" + articleEntityList +
+                '}';
+    }
 }

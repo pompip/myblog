@@ -41,7 +41,7 @@ public class ArticleServer {
         WebPage<ArticleEntity> webPage = new WebPage<>();
         webPage.setContent(pages);
         webPage.setCurrent(pageNum);
-        webPage.setTotal(total/10+1);//todo
+        webPage.setTotal(total/10+1);
         return webPage;
     }
 
@@ -84,7 +84,8 @@ public class ArticleServer {
         ArticleEntity articleEntity = articleWrapper.createArticleEntity();
         articleEntity.setAuthorId(1);
         articleEntity.setCategoryId(1);
-        return articleMapper.insert(articleEntity);
+        articleMapper.insert(articleEntity);
+        return articleEntity.getId();
     }
 
     public ArticleEntity updateArticle(String content, Long id) {

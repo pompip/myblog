@@ -1,6 +1,7 @@
 package cn.pompip.myblog.mapper;
 
 import cn.pompip.myblog.entity.ArticleEntity;
+import cn.pompip.myblog.entity.AuthorEntity;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
@@ -36,7 +37,9 @@ public interface ArticleMapper {
 
     @Select("select * from article_entity where id = #{id}")
     @Results({@Result(column = "create_timestamp",property = "createTimestamp",javaType = Timestamp.class),
-            @Result(column = "update_timestamp",property = "updateTimestamp",javaType = Timestamp.class)})
+            @Result(column = "update_timestamp",property = "updateTimestamp",javaType = Timestamp.class),})
     Optional<ArticleEntity> findById(long id);
+
+    ArticleEntity findArticleWithAuthorById(long id);
 
 }
