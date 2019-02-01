@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorate="layout/layout.html">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <title th:text="${article.getTitle()}">档案</title>
     <link rel="stylesheet" href="/css/markdown-style.css"/>
-    <!--<script src="/js/showdown.js"></script>-->
+    <th:block th:include="/layout::head"/>
 </head>
 <body class="container">
-<main class="row" layout:fragment="content">
+<nav th:replace="layout::nav"></nav>
+<main class="row" >
     <div  class="col-sm-9 ">
         <div class="card">
         <article class="markdown-body card-body">
@@ -17,12 +17,7 @@
         </article>
         </div>
     </div>
-    <!--<script th:inline="javascript">-->
-        <!--var content = [[${article.getContent()}]]-->
-        <!--var contentDiv = document.getElementById("markdown-content");-->
-        <!--var converter = new showdown.Converter();-->
-        <!--contentDiv.innerHTML = converter.makeHtml(content)-->
-    <!--</script>-->
 </main>
+<footer th:replace="layout::footer"></footer>
 </body>
 </html>
