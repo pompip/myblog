@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Optional;
+import java.util.List;
 
 public class DataSourceArticleTest {
     ArticleMapper mapper;
@@ -35,6 +35,13 @@ public class DataSourceArticleTest {
     public void testFindArticleWithAuthor() throws JsonProcessingException {
 
         ArticleEntity insert = mapper.findArticleWithAuthorById(5);
+        System.out.println(objectMapper.writeValueAsString(insert));
+    }
+
+    @Test
+    public void testFindAllLimit() throws JsonProcessingException {
+
+        List<ArticleEntity> insert = mapper.findAllLimit(1);
         System.out.println(objectMapper.writeValueAsString(insert));
     }
 }

@@ -4,25 +4,32 @@
       layout:decorate="~{layout/layout.html}">
 <head>
     <title>首页</title>
-
 </head>
 <body class="container">
 <main class="row" layout:fragment="content">
     <div class="col-sm-9">
-        <div class="card" th:each="article:${articleList}">
-            <div class="card-body">
-                <h4 class="text-primary">
-                    <a href="" class="text-muted" th:href="@{/archive/{id}(id=${article.getId()})}"
-                       th:text="${article.getTitle()}">
-                    </a>
-                </h4>
-                <p class="text-info" th:text="${#dates.format(article.getUpdateTimestamp())}"></p>
-                <p class="text-dark" th:utext="${article.getContent()}">
+        <ul class="list-group" th:each="article:${articleList}">
+            <li class="list-group-item mb-1">
+                <div class="custom-control-inline">
+                    <label class="align-self-center  mr-2">
+                        <a class="badge bg-success text-light "
+                           th:text="${article.getCategoryEntity().getName()}"></a>
+                    </label>
+                    <h4 href="" class="text-muted " th:href="@{/archive/{id}(id=${article.getId()})}"
+                        th:text="${article.getTitle()}">
+                    </h4>
+                </div>
+                <div>
+                    <a class="badge badge-info text-light" th:text="${article.getAuthorEntity().getName()}"></a>
+                    <a class="badge badge-info text-light" th:text="${#dates.format(article.getUpdateTimestamp())}"></a>
+                </div>
+                <div class="text-dark p-1" th:utext="${article.getContent()}">
                     some thing
-                </p>
+                </div>
                 <a href="" class="text-success" th:href="@{/archive/{id}(id=${article.getId()})}">more</a>
-            </div>
-        </div>
+            </li>
+
+        </ul>
         <ul class="pagination">
             <li class="page-item" th:if="${webPages.current!=0}">
                 <a class="page-link" th:href="@{/page/{page}(page = ${webPages.getCurrent()-1})}">Previous</a></li>
@@ -43,9 +50,9 @@
         <p><a href="https://guides.github.com/features/mastering-markdown/">GitHub Flavored Markdown</a></p>
         <h4>开源库</h4>
         <ul class="list-unstyled">
-            <li >showdown.js</li>
-            <li >bootstrap4</li>
-            <li >jquery</li>
+            <li>showdown.js</li>
+            <li>bootstrap4</li>
+            <li>jquery</li>
         </ul>
     </aside>
 </main>

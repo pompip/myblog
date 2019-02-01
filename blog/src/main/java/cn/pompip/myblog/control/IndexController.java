@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
@@ -22,7 +23,7 @@ public class IndexController {
     public String index(Model model) {
         WebPage<ArticleEntity> webPage = server.getArticleListWithPage(0);
         model.addAttribute("articleList", webPage.getContent());
-        model.addAttribute("webPages",webPage);
+        model.addAttribute("webPages", webPage);
         return "index";
     }
 
@@ -30,7 +31,7 @@ public class IndexController {
     public String page(@PathVariable int page, Model model) {
         WebPage<ArticleEntity> webPage = server.getArticleListWithPage(page);
         model.addAttribute("articleList", webPage.getContent());
-        model.addAttribute("webPages",webPage);
+        model.addAttribute("webPages", webPage);
         return "index";
     }
 
@@ -56,6 +57,15 @@ public class IndexController {
         model.addAttribute("id", id);
         loge("id:" + id);
         return "markdown";
+    }
+
+    @RequestMapping(value = {"/editor/{id}","/editor"})
+    public String startEditor(@PathVariable(value = "id",required = false) Long id, Model model) {
+        if (id != null) {
+            model.addAttribute("id", id);
+        }
+        loge("id:" + id);
+        return "editor";
     }
 
     @GetMapping("/resume")

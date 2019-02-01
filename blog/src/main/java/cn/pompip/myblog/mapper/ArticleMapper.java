@@ -17,9 +17,7 @@ public interface ArticleMapper {
             @Result(column = "update_timestamp",property = "updateTimestamp",jdbcType = JdbcType.TIMESTAMP,javaType = Timestamp.class)})
     List<ArticleEntity> findAll();
 
-    @Select("select * from article_entity order by create_timestamp DESC limit #{page},10")
-    @Results({@Result(column = "create_timestamp",property = "createTimestamp",jdbcType = JdbcType.TIMESTAMP,javaType = Timestamp.class),
-            @Result(column = "update_timestamp",property = "updateTimestamp",jdbcType = JdbcType.TIMESTAMP,javaType = Timestamp.class)})
+
     List<ArticleEntity> findAllLimit(@Param("page") int page);
 
     @Select("select count(*) from article_entity")

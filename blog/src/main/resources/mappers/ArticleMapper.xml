@@ -17,7 +17,18 @@
             <result property="createTimestamp" column="c_create_timestamp"/>
         </association>
     </resultMap>
+    <!--@Select("select * from article_entity order by create_timestamp DESC limit #{page},10")-->
+    <!--@Results({@Result(column = "create_timestamp",property = "createTimestamp",jdbcType = JdbcType.TIMESTAMP,javaType = Timestamp.class),-->
+    <!--@Result(column = "update_timestamp",property = "updateTimestamp",jdbcType = JdbcType.TIMESTAMP,javaType = Timestamp.class)})-->
 
+    <select id="findAllLimit" resultMap="ArticleWithAuthor">
+        select a.*,b.name,c.name as cname, c.create_timestamp as c_create_timestamp
+        from article_entity a
+            left join author_entity b on a.author_id = b.id
+            left join category_entity c on a.category_id = c.id
+        order by create_timestamp
+        DESC limit #{page},10;
+    </select>
     <select id="findArticleWithAuthorById" resultMap="ArticleWithAuthor" parameterType="long">
         select a.*,b.name,c.name as cname, c.create_timestamp as c_create_timestamp
         from article_entity a
