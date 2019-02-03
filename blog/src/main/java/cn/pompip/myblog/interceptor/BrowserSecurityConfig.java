@@ -57,6 +57,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().mvcMatchers("/","/page/**","/archive/**","/img/**","/css/**","/js/**","/favicon.ico");
+        web.ignoring().mvcMatchers("/","/page/**",
+                "/archives","/archive/**","/img/**","/css/**","/js/**","/favicon.ico");
     }
 }

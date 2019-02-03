@@ -6,6 +6,7 @@ import cn.pompip.myblog.server.ArticleServer;
 
 import static cn.pompip.myblog.utils.LogUtil.loge;
 
+import cn.pompip.myblog.server.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,19 +18,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
     @Autowired
-    ArticleServer server;
+    ArticleServer articleServer;
+    @Autowired
+    CategoryService categoryService;
 
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
-        WebPage<ArticleEntity> webPage = server.getArticleListWithPage(0);
+        WebPage<ArticleEntity> webPage = articleServer.getArticleListWithPage(0);
         model.addAttribute("articleList", webPage.getContent());
         model.addAttribute("webPages", webPage);
+        model.addAttribute("categoryList",categoryService.findAllCategory());
         return "index";
     }
 
     @GetMapping("page/{page}")
     public String page(@PathVariable int page, Model model) {
-        WebPage<ArticleEntity> webPage = server.getArticleListWithPage(page);
+        WebPage<ArticleEntity> webPage = articleServer.getArticleListWithPage(page);
         model.addAttribute("articleList", webPage.getContent());
         model.addAttribute("webPages", webPage);
         return "index";
@@ -42,13 +46,13 @@ public class IndexController {
 
     @GetMapping("/archives")
     public String getArchives(Model model) {
-        model.addAttribute("articleList", server.getAllArticle());
+        model.addAttribute("articleList", articleServer.getAllArticle());
         return "archives";
     }
 
     @GetMapping("/archive/{id}")
     public String previewArticle(@PathVariable long id, Model model) {
-        model.addAttribute("article", server.getArticleHTML(id));
+        model.addAttribute("article", articleServer.getArticleHTML(id));
         return "article_content";
     }
 

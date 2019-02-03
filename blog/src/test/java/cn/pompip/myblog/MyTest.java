@@ -1,14 +1,29 @@
 package cn.pompip.myblog;
 
+import ch.qos.logback.core.joran.util.beans.BeanUtil;
+import cn.pompip.myblog.entity.AuthorEntity;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class MyTest {
+    @Test
+    public void testBeanUtils(){
+        Map<String,Object> map = new HashMap<>();
+        AuthorEntity authorEntity = new AuthorEntity();
+        authorEntity.setName("hello");
+        authorEntity.setId(1);
+
+        BeanUtils.copyProperties(authorEntity,map,AuthorEntity.class);
+        System.out.println(map);
+    }
     @Test
     public void testMatches(){
         String line = "version=65 ()\n" +

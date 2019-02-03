@@ -5,10 +5,17 @@
     <title>首页</title>
 
 </head>
-<body class="container">
+<body >
 <nav th:replace="layout::nav"></nav>
-<main class="row" >
-    <div class="col-sm-9">
+<main class="container-fluid row"  >
+    <aside class="col-2">
+        <ul class="list-group" th:each="category:${categoryList}">
+            <li class="list-group-item">
+                <a th:href="@{/category/{id}(id = ${category.getId()})}" th:text="${category.getName()}"></a>
+            </li>
+        </ul>
+    </aside>
+    <div class="col-7">
         <ul class="list-group" th:each="article:${articleList}">
             <li class="list-group-item mb-1">
                 <div class="custom-control-inline">
@@ -22,7 +29,7 @@
                 </div>
                 <div>
                     <a class="badge badge-info text-light" th:text="${article.getAuthorEntity().getName()}"></a>
-                    <a class="badge badge-info text-light" th:text="${#dates.format(article.getUpdateTimestamp())}"></a>
+                    <a class="badge badge-info text-light" th:text="${#dates.format(article.getUpdateTimestamp(),'yy-MM-dd HH:mm')}"></a>
                 </div>
                 <div class="text-dark p-1" th:utext="${article.getContent()}">
                     some thing
@@ -41,7 +48,7 @@
                 <a class="page-link" th:href="@{/page/{page}(page = ${webPages.getCurrent()+1})}">Next</a></li>
         </ul>
     </div>
-    <aside class="col-sm-3">
+    <aside class="col-3  ">
         <p><img class="rounded-circle img-fluid mx-auto" src="/img/zxq.jpg"/></p>
         <h4>关于我...</h4>
         <p>本人太丑...<br>

@@ -28,5 +28,6 @@
         <mapper resource="mappers/AuthorMapper.xml" />
         <mapper class="cn.pompip.myblog.mapper.ArticleMapper" />
         <mapper resource="mappers/ArticleMapper.xml"/>
+        <mapper resource="mappers/CategoryMapper.xml"/>
     </mappers>
 </configuration>

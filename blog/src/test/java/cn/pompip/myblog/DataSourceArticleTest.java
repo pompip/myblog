@@ -13,6 +13,7 @@ import java.util.List;
 
 public class DataSourceArticleTest {
     ArticleMapper mapper;
+
     ObjectMapper objectMapper = new ObjectMapper();
     @Before
     public void createDatasource() throws IOException {
