@@ -24,12 +24,12 @@
         <h2>2018</h2>
         <ul class="list-group">
             <li class="list-group-item " th:each="art:${articleList}">
-                <div class="pl-2 row" th:text="${#dates.format(art.getCreateTimestamp())}">Mar 19, 2018</div>
+                <div class="pl-2 row" th:text="${#dates.format(art.getCreateTimestamp(),'yy-MM-dd HH:mm')}">Mar 19, 2018</div>
                 <div class="row">
-                    <h4 class="col-10"><a  th:href="@{/archive/{id}(id=${art.getId()})}" th:text="${art.getTitle()}">
+                    <h4 class="flex-grow-1"><a  th:href="@{/archive/{id}(id=${art.getId()})}" th:text="${art.getTitle()}">
                         标题</a></h4>
-                    <a class="col-1 text-primary" th:href="@{/markdown/{id}(id=${art.getId()})}"> 编辑 </a>
-                    <a class="col-1 text-secondary" href="#" th:onclick="'javascript:clickDelete('+${art.getId()}+')'"> 删除</a>
+                    <a class="m-1 text-primary" th:href="@{/markdown/{id}(id=${art.getId()})}"> 编辑 </a>
+                    <a class="m-1 text-secondary" href="#" th:onclick="'javascript:clickDelete('+${art.getId()}+')'"> 删除</a>
                 </div>
             </li>
 
