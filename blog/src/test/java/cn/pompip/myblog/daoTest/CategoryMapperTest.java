@@ -1,16 +1,15 @@
-package cn.pompip.myblog;
+package cn.pompip.myblog.daoTest;
 
 import cn.pompip.myblog.mapper.CategoryMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.session.SqlSession;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 
-public class DatasouceTestCategory {
+public class CategoryMapperTest {
 
     private SqlSession sqlSession;
     private CategoryMapper mapper;

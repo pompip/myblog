@@ -1,4 +1,4 @@
-package cn.pompip.myblog;
+package cn.pompip.myblog.daoTest;
 
 import cn.pompip.myblog.entity.AuthorEntity;
 import cn.pompip.myblog.mapper.AuthorMapper;
@@ -11,7 +11,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 
-public class DataSourceTest {
+public class AuthorMapperTest {
     SqlSession sqlSession;
     ObjectMapper mapper = new ObjectMapper();
     AuthorMapper authorMapper;

@@ -38,9 +38,6 @@ subprojects {
     }
 }
 
-group = "cn.pompip"
-version = "0.0.1-SNAPSHOT"
-
 
 
 

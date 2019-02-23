@@ -8,7 +8,15 @@ public class CategoryEntity {
     private String name;
     private int position;
     private Timestamp createTimestamp;
+    private int count;
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public int getId() {
         return id;

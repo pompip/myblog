@@ -1,4 +1,4 @@
-package cn.pompip.myblog;
+package cn.pompip.myblog.daoTest;
 
 import cn.pompip.myblog.entity.ArticleEntity;
 import cn.pompip.myblog.mapper.ArticleMapper;
@@ -11,7 +11,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.List;
 
-public class DataSourceArticleTest {
+public class ArticleMapperTest {
     ArticleMapper mapper;
 
     ObjectMapper objectMapper = new ObjectMapper();

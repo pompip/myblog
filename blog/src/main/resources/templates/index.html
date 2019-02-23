@@ -11,7 +11,7 @@
     <aside class="col-2">
         <ul class="list-group" th:each="category:${categoryList}">
             <li class="list-group-item">
-                <a th:href="@{/category/{id}(id = ${category.getId()})}" th:text="${category.getName()}"></a>
+                <a th:href="@{/category/{id}(id = ${category.getId()})}" th:text="${category.getName()+' ('+category.getCount()+')'}"></a>
             </li>
         </ul>
     </aside>

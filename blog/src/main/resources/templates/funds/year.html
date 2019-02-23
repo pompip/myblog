@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="layout::head"/>
+    <title>账本</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function toMonth(year,month) {
+            window.location= "/funds/"+year+"/"+month;
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <nav class="breadcrumb bg-dark mb-0 d-flex">
+        <a class="breadcrumb-item text-light">账本</a>
+        <a class="breadcrumb-item text-light">2019年</a>
+        <a class="breadcrumb-item text-light active">2月</a>
+        <div class="flex-grow-1"></div>
+        <a class="text-light " href="/funds/add">新增</a>
+    </nav>
+    <table class="table table-hover table-bordered">
+        <thead class="thead-dark ">
+        <tr>
+            <th>月份</th>
+            <th>消费</th>
+            <th>收入</th>
+        </tr>
+        </thead>
+
+        <th:block th:each="monthCast:${monthCastList}">
+            <tr th:onclick="'javascript:toMonth('+${monthCast.get('year')}+','+${monthCast.get('month')}+')'">
+                <td th:text="${monthCast.get('year')}+'年'+${monthCast.get('month')}+'月'">2019年2月</td>
+                <td th:text="${monthCast.get('total')}">300</td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+</body>
+</html>

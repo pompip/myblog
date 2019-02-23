@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="layout::head"/>
+    <title>账本</title>
+</head>
+<body>
+
+<div class="container">
+    <nav class="breadcrumb  mb-0 d-flex">
+        <a class="breadcrumb-item ">账本</a>
+        <a class="breadcrumb-item active" th:text="${current.get('year')+'年'}"
+        th:href="${'/funds/'+current.get('year')}">2019年</a>
+
+        <div class="dropdown breadcrumb-item">
+            <a class="  active dropdown-toggle" data-toggle="dropdown" th:text="${current.get('month')+'月'}">2月</a>
+            <div class="dropdown-menu">
+                <th:block th:each="month:${monthCastList}">
+                    <a class="dropdown-item"
+                       th:if="${(month.get('year')==current.get('year'))&&month.get('month')!=current.get('month')}"
+                       th:href="${'/funds/'+month.get('year')+'/'+month.get('month')}"
+                       th:text="${month.get('month')+'月'}">Link 1</a>
+                </th:block>
+            </div>
+        </div>
+        <div class="flex-grow-1"></div>
+        <a href="/funds/add">新增</a>
+    </nav>
+    <div class="d-flex justify-content-end"><strong class="text-danger p-1" th:text="'总计:'+${total}">12345</strong>
+    </div>
+    <table class="table  table-hover table-bordered  ">
+        <thead class="thead-dark ">
+        <tr>
+            <th>日期</th>
+            <th>商品</th>
+            <th>金额</th>
+            <th>方式</th>
+            <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="fund:${fundList}">
+            <tr>
+                <td th:text="${#dates.format(fund.getDate(),'yyyy-MM-dd')}">2019-12-29</td>
+                <td th:text="${fund.getProduct()}">奶粉</td>
+                <td th:text="${fund.getMoney()}">100.09</td>
+                <td th:text="${fund.getWay()}">支付宝</td>
+                <td th:text="${fund.getReference()}">YY的二段奶粉</td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

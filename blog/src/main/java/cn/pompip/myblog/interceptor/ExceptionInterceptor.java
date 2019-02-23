@@ -16,6 +16,7 @@ public class ExceptionInterceptor {
 
     @ExceptionHandler(Exception.class)
    public ModelAndView defaultErrorHandler(HttpServletRequest request , Exception e )  {
+        e.printStackTrace();
         ModelAndView mav =new ModelAndView();
         mav.addObject("errorCode", 500);
         mav.addObject("errorURL", request.getRequestURL());

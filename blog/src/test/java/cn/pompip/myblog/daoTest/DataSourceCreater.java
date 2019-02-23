@@ -1,4 +1,4 @@
-package cn.pompip.myblog;
+package cn.pompip.myblog.daoTest;
 
 import cn.pompip.myblog.mapper.ArticleMapper;
 import org.apache.ibatis.datasource.pooled.PooledDataSourceFactory;
