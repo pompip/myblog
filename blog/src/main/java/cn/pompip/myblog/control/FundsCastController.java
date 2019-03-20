@@ -18,13 +18,18 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/funds")
-public class FundsController {
+@RequestMapping("/funds/cast")
+public class FundsCastController {
 
     @Autowired
     FundsServer fundsServer;
 
-    @GetMapping({"", "/add"})
+    @GetMapping("/")
+    public String toCast(){
+        return "funds/cast";
+    }
+
+    @GetMapping({ "/add"})
     public String addFunds() {
         return "funds/add";
     }

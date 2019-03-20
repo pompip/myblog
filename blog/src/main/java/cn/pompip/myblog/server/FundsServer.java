@@ -1,6 +1,8 @@
 package cn.pompip.myblog.server;
 
+import cn.pompip.myblog.dao.IncomeDao;
 import cn.pompip.myblog.entity.FundCastEntity;
+import cn.pompip.myblog.entity.IncomeEntity;
 import cn.pompip.myblog.mapper.FundMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ import java.util.Map;
 public class FundsServer {
     @Autowired
     FundMapper fundMapper;
+
+    @Autowired
+    IncomeDao incomeDao;
 
 
     public List<FundCastEntity> findFundsCast(int year,int month){
@@ -37,5 +42,9 @@ public class FundsServer {
 
     public void saveFunds(FundCastEntity fundCastEntity){
         fundMapper.addFundCast(fundCastEntity);
+    }
+
+    public List<IncomeEntity> fundIncomeByMonth(int year,int month){
+        return incomeDao.findAllByMonth(year,month);
     }
 }

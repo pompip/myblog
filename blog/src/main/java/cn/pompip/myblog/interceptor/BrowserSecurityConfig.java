@@ -67,6 +67,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/img/**",
                 "/css/**",
                 "/js/**",
+                "/date/**",
                 "/favicon.ico");
     }
 }

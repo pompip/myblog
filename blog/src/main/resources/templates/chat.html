@@ -5,7 +5,7 @@
           content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta charset="UTF-8">
     <title>交流中心</title>
-    <script src="/js/jquery-1.11.2.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
     <script>
         /**
          public String fromUserID;
@@ -19,6 +19,8 @@
         let meID;
 
         function receiveMsg(msg) {
+            console.log(msg);
+            return;
             let json = JSON.parse(msg);
             if (json.cmd === 1) {
                 chatMessage.push(JSON.parse(json.body));
@@ -65,7 +67,7 @@
             })
         }
 
-        let ws = new WebSocket("ws://" + window.location.host + "/webSocket/chat");
+        let ws = new WebSocket("ws://localhost:8000"  + "/ws");
         ws.onmessage = function (ev) {
             let data = ev.data;
             receiveMsg(data)
