@@ -1,7 +1,5 @@
 package cn.pompip.myblog.model;
 
-
-
 import java.util.List;
 
 public class WebPage <T>{

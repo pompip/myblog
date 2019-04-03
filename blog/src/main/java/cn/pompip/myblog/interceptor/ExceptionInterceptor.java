@@ -15,19 +15,19 @@ public class ExceptionInterceptor {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @ExceptionHandler(Exception.class)
-   public ModelAndView defaultErrorHandler(HttpServletRequest request , Exception e )  {
+    public ModelAndView defaultErrorHandler(HttpServletRequest request, Exception e) {
         e.printStackTrace();
-        ModelAndView mav =new ModelAndView();
+        ModelAndView mav = new ModelAndView();
         mav.addObject("errorCode", 500);
         mav.addObject("errorURL", request.getRequestURL());
-        StringBuilder stackTrace =new StringBuilder(e.getMessage());
+        StringBuilder stackTrace = new StringBuilder(e.getMessage());
         stackTrace.append("\n\n");
         for (StackTraceElement element : e.getStackTrace()) {
             stackTrace.append(element).append("\n");
         }
         mav.addObject("errorStack", stackTrace.toString());
-        mav.setViewName( "error");
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes() ;
+        mav.setViewName("error");
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         logger.info("url={}", requestAttributes.getRequest().getRequestURI());
         return mav;
     }

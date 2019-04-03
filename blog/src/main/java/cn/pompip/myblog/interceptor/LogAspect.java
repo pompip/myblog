@@ -12,6 +12,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.Map;
 
 @Aspect
 @Component
@@ -25,10 +27,23 @@ public class LogAspect {
     }
 
     @Before("log()")
-    public void doBefore() {
+    public void doBefore() throws IOException {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
-        logger.info("url={}", request.getRequestURI());
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("http:").append("\n");
+        builder.append("url:").append(request.getRequestURI()).append("\n");
+        builder.append("method:").append(request.getMethod()).append("\n");
+        request.getParameterMap().forEach(( key,value)->{
+            builder.append("param:").append(key).append(":").append(value.length>0?value[0]:"null").append("\n");
+        });
+        builder.append("reader:");
+        request.getReader().lines().forEach((line)->{
+            builder.append(line);
+        });
+        builder.append("\n").append("class:").append(request);
+        logger.info(builder.toString());
 
     }
 

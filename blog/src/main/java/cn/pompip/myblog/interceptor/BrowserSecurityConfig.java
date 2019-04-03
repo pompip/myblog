@@ -58,7 +58,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().mvcMatchers(
-                "/",
+                "/**",
                 "/page/**",
                 "/archives",
                 "/archive/**",
@@ -70,4 +70,6 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/date/**",
                 "/favicon.ico");
     }
+
+
 }

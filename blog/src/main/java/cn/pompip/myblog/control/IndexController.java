@@ -22,7 +22,7 @@ public class IndexController {
     @Autowired
     CategoryService categoryService;
 
-    @GetMapping(value = {"/", "/index"})
+        @GetMapping("/")
     public String index(Model model) {
         WebPage<ArticleEntity> webPage = articleServer.getArticleListWithPage(0);
         model.addAttribute("articleList", webPage.getContent());
@@ -31,7 +31,7 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("page/{page}")
+
     public String page(@PathVariable int page, Model model) {
         WebPage<ArticleEntity> webPage = articleServer.getArticleListWithPage(page);
         model.addAttribute("articleList", webPage.getContent());
@@ -39,31 +39,31 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/markdown")
+//    @GetMapping("/markdown")
     public String startMarkdown(Model model) {
         return "markdown";
     }
 
-    @GetMapping("/archives")
+//    @GetMapping("/archives")
     public String getArchives(Model model) {
         model.addAttribute("articleList", articleServer.getAllArticle());
         return "archives";
     }
 
-    @GetMapping("/archive/{id}")
+//    @GetMapping("/archive/{id}")
     public String previewArticle(@PathVariable long id, Model model) {
         model.addAttribute("article", articleServer.getArticleHTML(id));
         return "article_content";
     }
 
-    @GetMapping("/markdown/{id}")
+//    @GetMapping("/markdown/{id}")
     public String startMarkdown(@PathVariable("id") long id, Model model) {
         model.addAttribute("id", id);
         loge("id:" + id);
         return "markdown";
     }
 
-    @RequestMapping(value = {"/editor/{id}","/editor"})
+//    @RequestMapping(value = {"/editor/{id}","/editor"})
     public String startEditor(@PathVariable(value = "id",required = false) Long id, Model model) {
         if (id != null) {
             model.addAttribute("id", id);
@@ -72,7 +72,7 @@ public class IndexController {
         return "editor";
     }
 
-    @GetMapping("/resume")
+//    @GetMapping("/resume")
     public String myResume() {
         return "resume";
     }
