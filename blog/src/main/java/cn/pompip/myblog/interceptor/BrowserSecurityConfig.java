@@ -61,6 +61,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/**",
                 "/page/**",
                 "/archives",
+                "/download/**",
                 "/archive/**",
                 "/funds/**",
                 "/error",
