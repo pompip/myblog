@@ -2,6 +2,7 @@ package cn.pompip.myblog.config;
 
 import cn.pompip.myblog.utils.JsonUtil;
 import cn.pompip.myblog.utils.LogUtil;
+import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,4 +18,6 @@ public class UtilsConfig {
     public JsonUtil createJsonUtil(){
         return new JsonUtil();
     }
+
+
 }

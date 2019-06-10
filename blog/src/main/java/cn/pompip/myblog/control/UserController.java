@@ -1,42 +1,51 @@
 package cn.pompip.myblog.control;
 
+import cn.pompip.myblog.server.UserService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
 
-@Controller
+@RestController
 @RequestMapping("/user")
+//@CrossOrigin
 public class UserController {
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
+    @Resource
+    UserService userService;
 
-    @GetMapping("/register")
+    @PostMapping("/logon")
     public String register() {
         return "register";
     }
 
-    @ResponseBody
-    @PostMapping("/login_in")
-    public int login(String name, String pwd, HttpSession session) {
-        if ("chong".equals(name) && pwd.equals("314159")) {
-            session.setAttribute("user", "chong");
-            return 1;
+    @PostMapping("/login")
+    public Map<String, String> login(@RequestParam String name, @RequestParam String password) throws Exception {
+//        String name = (String) map.get("name");
+//        String password = (String) map.get("password");
+        Map<String, String> tokenResponse = new HashMap<>();
+        Logger.getLogger("").info("name:" + name + " pwd:" + password);
+        if ("chong".equals(name) && password.equals("314159")) {
+            String token = new Date().toString();
+            userService.addUser(token, "chong");
+            tokenResponse.put("token", token);
+            return tokenResponse;
         } else {
-            return 0;
+            throw new RuntimeException();
         }
+
     }
 
-    @ResponseBody
     @PostMapping("/logout")
-    public int logout(HttpSession session) {
-        session.removeAttribute("user");
+    public int logout(HttpServletRequest request) {
+        String headToken = request.getHeader("token");
+        userService.remoteUser(headToken);
         return 1;
     }
 

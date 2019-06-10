@@ -13,10 +13,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class LogAspect {
 
     Logger logger = LoggerFactory.getLogger(getClass());
@@ -30,8 +32,11 @@ public class LogAspect {
     public void doBefore() throws IOException {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
-
         StringBuilder builder = new StringBuilder();
+        builder.append("headers:").append("\n");
+        Collections.list(request.getHeaderNames()).forEach((name)->{
+            builder.append(name).append(" : ").append(request.getHeader(name)).append("\n");
+        });
         builder.append("http:").append("\n");
         builder.append("url:").append(request.getRequestURI()).append("\n");
         builder.append("method:").append(request.getMethod()).append("\n");
@@ -39,9 +44,10 @@ public class LogAspect {
             builder.append("param:").append(key).append(":").append(value.length>0?value[0]:"null").append("\n");
         });
         builder.append("reader:");
-        request.getReader().lines().forEach((line)->{
-            builder.append(line);
-        });
+
+//        request.getReader().lines().forEach((line)->{
+//            builder.append(line);
+//        });
         builder.append("\n").append("class:").append(request);
         logger.info(builder.toString());
 

@@ -1,12 +1,16 @@
 package cn.pompip.myblog.entity;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
 public class CategoryEntity {
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @Id
     private int id;
     private String name;
     private int position;
+
     private Timestamp createTimestamp;
     private int count;
 

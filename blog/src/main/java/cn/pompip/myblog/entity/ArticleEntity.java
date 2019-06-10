@@ -1,10 +1,13 @@
 package cn.pompip.myblog.entity;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
-
+@Entity
 public class ArticleEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     private long id;
 
     private String content;
@@ -13,8 +16,9 @@ public class ArticleEntity {
     private long authorId;
     private int categoryId;
     private String title;
-
+    @Transient
     private AuthorEntity authorEntity;
+    @Transient
     private CategoryEntity categoryEntity;
 
 

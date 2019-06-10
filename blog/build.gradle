@@ -1,6 +1,5 @@
 group 'cn.pompip'
 version '0.0.1-SNAPSHOT'
-sourceCompatibility =1.8
 
 
 jar {
@@ -9,22 +8,31 @@ jar {
 
 
 dependencies {
-    implementation project(":base-lib")
+//    implementation project(":base-lib")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-starter-web")
+//    compile("org.springframework.boot:spring-boot-starter-websocket")
+    compile("org.springframework.boot:spring-boot-starter-tomcat")
+    compile("org.springframework.boot:spring-boot-devtools")
+
+    runtime("mysql:mysql-connector-java")
+
 
     implementation 'com.vladsch.flexmark:flexmark-all:0.40.4'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
+
+//    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
     implementation 'commons-beanutils:commons-beanutils:1.9.3'
     implementation 'com.google.guava:guava:27.0.1-jre'
+
+//    compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.1'
+
 
     compile("org.springframework.boot:spring-boot-starter-actuator")
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile("org.springframework.boot:spring-boot-starter-test")
 
-    // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
-    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.1'
+//    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.1'
 
 }
 

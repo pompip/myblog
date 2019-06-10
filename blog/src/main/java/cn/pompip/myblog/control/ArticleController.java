@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/article")
-@CrossOrigin
+//@CrossOrigin
 public class ArticleController {
     private ArticleServer server;
 
@@ -35,14 +35,10 @@ public class ArticleController {
     }
 
     @PostMapping("/save")
-    public long saveArticle( String content) {
-        return server.saveArticle(content);
+    public ArticleEntity saveArticle( @RequestBody ArticleEntity articleEntity) {
+        return server.saveArticle(articleEntity);
     }
 
-    @GetMapping("/update")
-    public long updateArticle(String content, long id) {
-        return server.updateArticle(content, id).getId();
-    }
 
     @GetMapping("/delete/{id}")
     public void deleteArticle(@PathVariable long id) {

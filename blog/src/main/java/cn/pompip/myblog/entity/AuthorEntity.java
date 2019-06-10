@@ -1,11 +1,15 @@
 package cn.pompip.myblog.entity;
 
+import javax.persistence.*;
 import java.util.List;
-
+@Entity
 public class AuthorEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     private long id;
     private String name;
+    @Transient
     private List<ArticleEntity> articleEntityList;
 
     public long getId() {

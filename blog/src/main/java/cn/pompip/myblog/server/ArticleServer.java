@@ -1,12 +1,14 @@
 package cn.pompip.myblog.server;
 
+import cn.pompip.myblog.dao.ArticleDao;
 import cn.pompip.myblog.entity.ArticleEntity;
-import cn.pompip.myblog.exe.ArticleWrapper;
-import cn.pompip.myblog.mapper.ArticleMapper;
 import cn.pompip.myblog.model.WebPage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import java.sql.Timestamp;
@@ -15,11 +17,11 @@ import java.util.*;
 
 @Service
 public class ArticleServer {
-    private ArticleMapper articleMapper;
+    private ArticleDao articleMapper;
     private MarkdownService markdownService;
 
     @Autowired
-    public ArticleServer(ArticleMapper articleMapper, MarkdownService markdownService) {
+    public ArticleServer(ArticleDao articleMapper, MarkdownService markdownService) {
         this.articleMapper = articleMapper;
         this.markdownService = markdownService;
     }
@@ -32,16 +34,16 @@ public class ArticleServer {
 
     public WebPage<ArticleEntity> getArticleListWithPage(int pageNum) {
 
-        List<ArticleEntity> pages = articleMapper.findAllLimit(pageNum*10);
+        Page<ArticleEntity> pages = articleMapper.findAll(  PageRequest.of(pageNum,10,Sort.Direction.DESC,"createTimestamp") );
         if (pages.isEmpty()){
             return null;
         }
-        pages.forEach(this::generateBrief);
-        long total = articleMapper.count();
+//        pages.forEach(this::generateBrief);
+
         WebPage<ArticleEntity> webPage = new WebPage<>();
-        webPage.setContent(pages);
+        webPage.setContent(pages.getContent());
         webPage.setCurrent(pageNum);
-        webPage.setTotal(total/10+1);
+        webPage.setTotal(pages.getTotalPages());
         return webPage;
     }
 
@@ -79,19 +81,31 @@ public class ArticleServer {
     }
 
 
-    public long saveArticle(String content){
-        ArticleWrapper articleWrapper = new ArticleWrapper(content);
-        ArticleEntity articleEntity = articleWrapper.createArticleEntity();
+    public ArticleEntity saveArticle(ArticleEntity articleEntity){
+        System.out.println(articleEntity);
+        Scanner scanner = new Scanner(articleEntity.getContent());
+        String title = "无标题";
+
+        String line = scanner.nextLine();
+        if (line != null && line.startsWith("# ")) {
+            title = line.substring(2);
+        }
+        articleEntity.setTitle(title);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        if (articleEntity.getCreateTimestamp()==null){
+            articleEntity.setCreateTimestamp(timestamp);
+        }
+        articleEntity.setUpdateTimestamp(timestamp);
+
         articleEntity.setAuthorId(1);
         articleEntity.setCategoryId(1);
-        articleMapper.insert(articleEntity);
-        return articleEntity.getId();
+        return articleMapper.saveAndFlush(articleEntity);
     }
 
     public ArticleEntity updateArticle(String content, Long id) {
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-         articleMapper.updateContent(id,content,timestamp);
+//         articleMapper.updateContent(id,content,timestamp);
         return getArticle(id);
 
     }

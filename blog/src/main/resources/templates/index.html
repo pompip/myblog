@@ -1,52 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<html lang="zh"  >
 <head >
-    <th:block th:include="layout::head"/>
     <title>首页</title>
 
 </head>
 <body >
-<nav th:replace="layout::nav"></nav>
+<nav ></nav>
 <main class="container-fluid row"  >
     <aside class="col-2">
-        <ul class="list-group" th:each="category:${categoryList}">
-            <li class="list-group-item">
-                <a th:href="@{/category/{id}(id = ${category.getId()})}" th:text="${category.getName()+' ('+category.getCount()+')'}"></a>
-            </li>
-        </ul>
+
     </aside>
     <div class="col-7">
-        <ul class="list-group" th:each="article:${articleList}">
-            <li class="list-group-item mb-1">
-                <div class="custom-control-inline">
-                    <label class="align-self-center  mr-2">
-                        <a class="badge bg-success text-light "
-                           th:text="${article.getCategoryEntity().getName()}"></a>
-                    </label>
-                    <h4 href="" class="text-muted " th:href="@{/archive/{id}(id=${article.getId()})}"
-                        th:text="${article.getTitle()}">
-                    </h4>
-                </div>
-                <div>
-                    <a class="badge badge-info text-light" th:text="${article.getAuthorEntity().getName()}"></a>
-                    <a class="badge badge-info text-light" th:text="${#dates.format(article.getUpdateTimestamp(),'yy-MM-dd HH:mm')}"></a>
-                </div>
-                <div class="text-dark p-1" th:utext="${article.getContent()}">
-                    some thing
-                </div>
-                <a href="" class="text-success" th:href="@{/archive/{id}(id=${article.getId()})}">more</a>
-            </li>
-
-        </ul>
-        <ul class="pagination">
-            <li class="page-item" th:if="${webPages.current!=0}">
-                <a class="page-link" th:href="@{/page/{page}(page = ${webPages.getCurrent()-1})}">Previous</a></li>
-            <li class="page-item active" th:each="p:${#numbers.sequence(0,webPages.getTotal()-1)}"
-                th:class="${p==webPages.getCurrent()}?'page-item active':'page-item'">
-                <a class="page-link" th:text="${p+1}" th:href="@{/page/{p}(p=${p})}">1</a></li>
-            <li class="page-item" th:if="${webPages.current!=webPages.getTotal()-1}">
-                <a class="page-link" th:href="@{/page/{page}(page = ${webPages.getCurrent()+1})}">Next</a></li>
-        </ul>
+        hello world
     </div>
     <aside class="col-3  ">
         <p><img class="rounded-circle img-fluid mx-auto" src="/static/img/zxq.jpg"/></p>
