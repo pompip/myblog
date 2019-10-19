@@ -28,7 +28,7 @@ public class IndexController {
         model.addAttribute("articleList", webPage.getContent());
         model.addAttribute("webPages", webPage);
         model.addAttribute("categoryList", categoryService.findAllCategory());
-        return "/index.html";
+        return "index.html";
     }
 
 

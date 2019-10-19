@@ -3,6 +3,7 @@ package cn.pompip.myblog.control;
 import cn.pompip.myblog.entity.ArticleEntity;
 import cn.pompip.myblog.model.WebPage;
 import cn.pompip.myblog.server.ArticleServer;
+import cn.pompip.myblog.utils.NeedToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,12 +35,12 @@ public class ArticleController {
         return server.getArticle(id);
     }
 
+    @NeedToken
     @PostMapping("/save")
-    public ArticleEntity saveArticle( @RequestBody ArticleEntity articleEntity) {
+    public ArticleEntity saveArticle(@RequestBody ArticleEntity articleEntity) {
         return server.saveArticle(articleEntity);
     }
-
-
+    @NeedToken
     @GetMapping("/delete/{id}")
     public void deleteArticle(@PathVariable long id) {
         server.deleteArticle(id);

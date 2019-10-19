@@ -47,7 +47,7 @@ public class ExceptionInterceptor  extends ResponseEntityExceptionHandler{
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ex.printStackTrace();
         ResponseModel model  = new ResponseModel();
-        model.setCode(-1);
+        model.setCode(-2);
         model.setMsg("exception "+ex.toString()+" status:"+status.value());
         StackTraceElement[] stackTrace = ex.getStackTrace();
         Map<Integer,String> list = new TreeMap<>();

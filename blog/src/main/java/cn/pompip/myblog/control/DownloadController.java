@@ -22,7 +22,7 @@ public class DownloadController {
     public void downloadArticle(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
         ArticleEntity article = articleServer.getArticle(id);
         String content = article.getContent();
-        response.setHeader("Content-Disposition", String.format("attachment;filename*=utf-8''%s",URLEncoder.encode(article.getTitle(), "utf-8")));
+        response.setHeader("Content-Disposition", String.format("attachment;filename*=utf-8''%s",URLEncoder.encode(article.getTitle()+".md", "utf-8")));
 
         response.setContentLength(content.getBytes().length);
 //        response.setHeader("content-type", "application/octet-stream");

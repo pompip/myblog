@@ -11,8 +11,10 @@ public class ArticleEntity {
     private long id;
 
     private String content;
-    private Timestamp createTimestamp ;
-    private Timestamp updateTimestamp ;
+//    private Timestamp createTimestamp ;
+    private long createTime;
+//    private Timestamp updateTimestamp ;
+    private long updateTime;
     private long authorId;
     private int categoryId;
     private String title;
@@ -54,21 +56,21 @@ public class ArticleEntity {
         this.content = content;
     }
 
-    public Timestamp getCreateTimestamp() {
-        return createTimestamp;
-    }
-
-    public void setCreateTimestamp(Timestamp createTimestamp) {
-        this.createTimestamp = createTimestamp;
-    }
-
-    public Timestamp getUpdateTimestamp() {
-        return updateTimestamp;
-    }
-
-    public void setUpdateTimestamp(Timestamp updateTimestamp) {
-        this.updateTimestamp = updateTimestamp;
-    }
+//    public Timestamp getCreateTimestamp() {
+//        return createTimestamp;
+//    }
+//
+//    public void setCreateTimestamp(Timestamp createTimestamp) {
+//        this.createTimestamp = createTimestamp;
+//    }
+//
+//    public Timestamp getUpdateTimestamp() {
+//        return updateTimestamp;
+//    }
+//
+//    public void setUpdateTimestamp(Timestamp updateTimestamp) {
+//        this.updateTimestamp = updateTimestamp;
+//    }
 
     public long getAuthorId() {
         return authorId;
@@ -95,13 +97,27 @@ public class ArticleEntity {
         this.title = title;
     }
 
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
+
+    public long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(long updateTime) {
+        this.updateTime = updateTime;
+    }
+
     @Override
     public String toString() {
         return "ArticleEntity{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
-                ", createTimestamp=" + createTimestamp +
-                ", updateTimestamp=" + updateTimestamp +
                 ", authorId=" + authorId +
                 ", categoryId=" + categoryId +
                 ", title='" + title + '\'' +

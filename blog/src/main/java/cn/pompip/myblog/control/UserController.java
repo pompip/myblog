@@ -29,10 +29,11 @@ public class UserController {
     public Map<String, String> login(@RequestParam String name, @RequestParam String password) throws Exception {
 //        String name = (String) map.get("name");
 //        String password = (String) map.get("password");
-        Map<String, String> tokenResponse = new HashMap<>();
+
         Logger.getLogger("").info("name:" + name + " pwd:" + password);
         if ("chong".equals(name) && password.equals("314159")) {
-            String token = new Date().toString();
+            String token = userService.getToken(name,password);
+            Map<String, String> tokenResponse = new HashMap<>();
             userService.addUser(token, "chong");
             tokenResponse.put("token", token);
             return tokenResponse;

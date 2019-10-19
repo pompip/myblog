@@ -34,7 +34,7 @@ public class ArticleServer {
 
     public WebPage<ArticleEntity> getArticleListWithPage(int pageNum) {
 
-        Page<ArticleEntity> pages = articleMapper.findAll(  PageRequest.of(pageNum,10,Sort.Direction.DESC,"createTimestamp") );
+        Page<ArticleEntity> pages = articleMapper.findAll(  PageRequest.of(pageNum,12,Sort.Direction.DESC,"createTime") );
         if (pages.isEmpty()){
             return null;
         }
@@ -67,7 +67,8 @@ public class ArticleServer {
     }
 
     public List<ArticleEntity> getAllArticle() {
-        return articleMapper.findAll();
+        List<ArticleEntity> all = articleMapper.findAll();
+        return all;
     }
 
     public ArticleEntity getArticleHTML(long id) {
@@ -91,11 +92,10 @@ public class ArticleServer {
             title = line.substring(2);
         }
         articleEntity.setTitle(title);
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        if (articleEntity.getCreateTimestamp()==null){
-            articleEntity.setCreateTimestamp(timestamp);
+        if (articleEntity.getCreateTime()==0){
+            articleEntity.setCreateTime(System.currentTimeMillis());
         }
-        articleEntity.setUpdateTimestamp(timestamp);
+        articleEntity.setUpdateTime(System.currentTimeMillis());
 
         articleEntity.setAuthorId(1);
         articleEntity.setCategoryId(1);

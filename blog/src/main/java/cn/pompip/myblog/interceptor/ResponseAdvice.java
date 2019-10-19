@@ -1,9 +1,9 @@
 package cn.pompip.myblog.interceptor;
 
 import cn.pompip.myblog.model.ResponseModel;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,7 +26,7 @@ public class ResponseAdvice implements ResponseBodyAdvice {
                                   Class selectedConverterType,
                                   ServerHttpRequest request,
                                   ServerHttpResponse response) {
-        System.out.println(body);
+        LoggerFactory.getLogger(this.getClass()).debug(body.toString());
         ResponseModel responseModel = new ResponseModel();
         responseModel.setCode(0);
         responseModel.setData(body);
