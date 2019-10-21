@@ -5,6 +5,7 @@ import cn.pompip.myblog.entity.UserEntity;
 import cn.pompip.myblog.server.UserService;
 import cn.pompip.myblog.utils.PassToken;
 import cn.pompip.myblog.utils.NeedToken;
+import cn.pompip.myblog.utils.TokenUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -51,28 +52,17 @@ public  class MyInterceptor extends HandlerInterceptorAdapter {
                 if (token == null) {
                     throw new RuntimeException("无token，请重新登录");
                 }
-                // 获取 token 中的 user id
-                String name;
-                try {
-                    name = JWT.decode(token).getAudience().get(0);
-                } catch (JWTDecodeException j) {
-                    throw new RuntimeException("401");
-                }
-                UserEntity user = userService.findUserByName(name);
-                if (user == null) {
-                    throw new RuntimeException("用户不存在，请重新登录");
-                }
+
                 // 验证 token
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getPassword())).build();
+                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(TokenUtil.tokenSecret)).build();
 
                 try {
                     DecodedJWT verify = jwtVerifier.verify(token);
-//                    Date notBefore = verify.getNotBefore();
-//                    LoggerFactory.getLogger("chong").error(notBefore.toString());
-//                    if (notBefore==null||notBefore.compareTo(new Date())<0){
-//                        throw new RuntimeException("token过期,请重新登录");
-//                    }
-
+                    String userName = verify.getIssuer();
+                    UserEntity user = userService.findUserByName(userName);
+                    if (user == null) {
+                        throw new RuntimeException("用户不存在，请重新登录");
+                    }
                 } catch (JWTVerificationException e) {
                     throw new RuntimeException("401");
                 }

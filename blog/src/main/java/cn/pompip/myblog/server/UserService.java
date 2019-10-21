@@ -2,12 +2,9 @@ package cn.pompip.myblog.server;
 
 
 import cn.pompip.myblog.entity.UserEntity;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
+import cn.pompip.myblog.utils.TokenUtil;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -32,9 +29,12 @@ public class UserService  {
         return new UserEntity();
     }
 
-    public String getToken(String name,String password) {
-        return JWT.create().withAudience(name).withExpiresAt(new Date(System.currentTimeMillis()+1000*60*60))
-                .sign(Algorithm.HMAC256(password));
+    public String getToken(String name ) {
+        return TokenUtil.getToken(name);
+    }
+
+    public String refreshToken(String token){
+        return TokenUtil.refreshToken(token);
     }
 
     public UserEntity findUserByName(String name) {

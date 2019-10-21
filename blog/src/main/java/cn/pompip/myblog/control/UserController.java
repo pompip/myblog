@@ -1,6 +1,7 @@
 package cn.pompip.myblog.control;
 
 import cn.pompip.myblog.server.UserService;
+import cn.pompip.myblog.utils.NeedToken;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +28,9 @@ public class UserController {
 
     @PostMapping("/login")
     public Map<String, String> login(@RequestParam String name, @RequestParam String password) throws Exception {
-//        String name = (String) map.get("name");
-//        String password = (String) map.get("password");
-
         Logger.getLogger("").info("name:" + name + " pwd:" + password);
         if ("chong".equals(name) && password.equals("314159")) {
-            String token = userService.getToken(name,password);
+            String token = userService.getToken(name);
             Map<String, String> tokenResponse = new HashMap<>();
             userService.addUser(token, "chong");
             tokenResponse.put("token", token);
@@ -40,6 +38,17 @@ public class UserController {
         } else {
             throw new RuntimeException();
         }
+    }
+
+    @NeedToken
+    @PostMapping("/refresh")
+    public Map<String, String> refreshToken(@RequestHeader String token) throws Exception {
+        Logger.getLogger("").info("token:" + token);
+        String newToken = userService.refreshToken(token);
+        Map<String, String> tokenResponse = new HashMap<>();
+        userService.addUser(token, "chong");
+        tokenResponse.put("token", newToken);
+        return tokenResponse;
 
     }
 
